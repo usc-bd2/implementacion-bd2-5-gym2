@@ -1,0 +1,9 @@
+# Carpetas de compilación
+build/
+dist/
+
+# Configuraciones locales de NetBeans
+/nbproject/private/
+
+# Archivos de sistema
+.DS_Store
