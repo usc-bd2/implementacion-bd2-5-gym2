@@ -4,7 +4,6 @@
 
 Aplicación de escritorio en Java para la gestión de un gimnasio. El sistema permite realizar tanto operaciones de administración como operaciones de usuario, incluyendo gestión de clases, sesiones, salas, equipamiento, productos, reservas y valoraciones.
 
-
 ## Funcionalidades principales
 
 ### Administración:
@@ -80,6 +79,20 @@ baseDatos=nombre_basedatos
 usuario=usuario
 clave=clave
 ```
+
+## Inicializar proyecto
+
+1. **Crear la base de datos PostgreSQL**. Puede utilizarse los parametros de conexión definidos en `Gym.properties` para crear la base de datos. De otra forma, se puede crear la base de datos manualmente y luego configurar `Gym.properties` para que apunte a ella.
+
+2. Ejecutar el script `init_db.bash` para crear la base de datos y cargar los datos iniciales.
+    ```
+    chmod +x init_db.bash
+    ./init_db.bash
+    ``` 
+3. Abrir el proyecto en NetBeans y seleccionar `Clean and Build` para compilar la aplicación.
+
+4. Ejecutar la aplicación con `Run Project`.
+
 
 ## Autores:
 - Poza González, César, cesar.poza.gonzalez@rai.usc.es
