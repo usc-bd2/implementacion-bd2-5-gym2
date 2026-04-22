@@ -95,7 +95,5 @@ clave=clave
 
 
 ## Autores:
-- Poza González, César, cesar.poza.gonzalez@rai.usc.es
 - Rañó Myro, Maria, maria.rano@rai.usc.es
-- Rodríguez Lorenzo, Claudia, claudia.rodriguez.lorenzo@rai.usc.es
 - Rosas Archiveque, Amado, amado.rosas@rai.usc.es
