@@ -7,3 +7,6 @@ dist/
 
 # Archivos de sistema
 .DS_Store
+
+# Otros
+test/

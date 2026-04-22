@@ -5,16 +5,16 @@ import javax.swing.JOptionPane;
 
 public class FachadaGUI {
     private FachadaAplicacion fachadaAp;
-    private VPrincipal vPrincipal; 
-    
+private VContenedor vContenedor;
+
     public FachadaGUI(FachadaAplicacion fa) {
         this.fachadaAp = fa;
-        this.vPrincipal = new VPrincipal(this.fachadaAp);
+        this.vContenedor = new VContenedor(this.fachadaAp);    
     }
     
     public void muestraExcepcion(String txtExcepcion) {
         JOptionPane.showMessageDialog(
-            vPrincipal,
+            vContenedor,
             txtExcepcion,
             "Error",
             JOptionPane.ERROR_MESSAGE
@@ -22,6 +22,7 @@ public class FachadaGUI {
     }
     
     public void iniciarVentanas() {
-        vPrincipal.setVisible(true);
+        vContenedor.navegarA(new VPrincipal(fachadaAp), "Catálogo de Clases");
+        vContenedor.setVisible(true);
     }
 }
