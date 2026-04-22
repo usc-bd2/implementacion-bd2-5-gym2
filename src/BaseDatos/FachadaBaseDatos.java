@@ -60,6 +60,4 @@ public class FachadaBaseDatos {
     public Usuario buscarUsuarioPorId(Integer idUsuario) {
         return daoUsuario.buscarPorId(idUsuario);
     }
-
-
 }

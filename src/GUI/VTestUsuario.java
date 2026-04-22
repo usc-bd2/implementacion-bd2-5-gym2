@@ -21,6 +21,7 @@ public class VTestUsuario extends javax.swing.JPanel {
         lblEmail = new javax.swing.JLabel();
 
         txtId.setText("Buscar usuario por ID");
+        txtId.addActionListener(this::txtIdActionPerformed);
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(this::btnBuscarActionPerformed);
@@ -44,7 +45,7 @@ public class VTestUsuario extends javax.swing.JPanel {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
                         .addComponent(btnBuscar)
                         .addGap(29, 29, 29))))
         );
@@ -59,7 +60,7 @@ public class VTestUsuario extends javax.swing.JPanel {
                 .addComponent(lblNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblEmail)
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addContainerGap(351, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
