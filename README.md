@@ -48,7 +48,7 @@ La aplicación está desarrollada en Java siguiendo una arquitectura en capas qu
 └── src
     ├── Aplicacion
     │   ├── FachadaAplicacion.java    // Coordina la interacción entre la GUI y los gestores.
-    │   ├── GestorEntidad.java.       // Implementa la lógica de negocio para una entidad concreta.
+    │   ├── GestorEntidad.java        // Implementa la lógica de negocio para una entidad concreta.
     │   └── Entidad.java              // Clase que representa una entidad del dominio con sus atributos y métodos.
     ├── BaseDatos
     │   ├── AbstractDAO.java          // Centraliza el acceso a la conexión JDBC para todos los DAOs.
@@ -56,6 +56,7 @@ La aplicación está desarrollada en Java siguiendo una arquitectura en capas qu
     │   └── FachadaBaseDatos.java     // Gestiona la conexión con el servidor y la inicialización de los DAO.
     └── GUI
         ├── FachadaGUI.java           // Gestiona la interacción entre las ventanas y la lógica de aplicación.
+        ├── VContenedor.java          // JFrame principal que actúa como contenedor de las demás ventanas.
         ├── VEntidad.form             // Diseño visual de la ventana generado por NetBeans.
         └── VEntidad.java             // Ventana específica para la gestión de una entidad.
 ```
@@ -65,7 +66,7 @@ La aplicación está desarrollada en Java siguiendo una arquitectura en capas qu
 - Java JDK 17 o compatible
 - PostgreSQL
 - NetBeans (proyecto Java with Ant)
-- Driver JDBC de PostgreSQL
+- Driver JDBC de PostgreSQL 
 
 ## Archivo de configuración
 

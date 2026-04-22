@@ -6,15 +6,25 @@ import java.awt.BorderLayout;
 import java.util.Stack;
 
 
+/**
+ * Ventana contenedora principal de la aplicación.
+ *
+ * Su responsabilidad es:
+ * - mantener una zona central donde se cargan los distintos paneles de la app,
+ * - gestionar la navegación entre vistas,
+ * - conservar un historial simple para permitir volver a la vista anterior.
+ *
+ * La navegación se implementa con una pila de vistas previas.
+ */
 public class VContenedor extends javax.swing.JFrame {
     
     protected FachadaAplicacion fa;
     private JPanel panelContenido;
 
-    private Stack<Vista> pilaAtras = new Stack<>();
+    private Stack<Vista> pilaAtras = new Stack<>();     // Historial de navegación hacia atras
     private Vista vistaActual;
 
-    private static class Vista {
+    private static class Vista {    // Representa una vista por su panel y su título
         private JPanel panel;
         private String titulo;
 
@@ -133,7 +143,8 @@ public class VContenedor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void navegarA(JPanel panel, String titulo) {
+    public void navegarA(JPanel panel, String titulo) {     // Navega a una nueva vista y guarda la actual en el historial.
+
         if (vistaActual != null) {
             pilaAtras.push(vistaActual);
         }
@@ -150,6 +161,8 @@ public class VContenedor extends javax.swing.JFrame {
         panelContenido.repaint();
         this.pack();
     }
+
+    // -- HANDLERS --
 
     private void menuItemInicioActionPerformed(java.awt.event.ActionEvent evt) {
         navegarA(new VPrincipal(fa), "Proyecto BDII - Gimnasio");
