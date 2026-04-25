@@ -124,8 +124,8 @@ CREATE TABLE plaza (
     FOREIGN KEY (id_sala) REFERENCES sala(id_sala)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT chk_plaza_id
-    CHECK (id_plaza > 0)
+  CONSTRAINT chk_plaza_rango
+    CHECK (id_plaza BETWEEN 1 AND 15)
 );
 
 -- 11. Reserva_Plaza (asociativa entre Reserva y Plaza)
