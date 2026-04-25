@@ -4,28 +4,38 @@
 
 Aplicación de escritorio en Java para la gestión de un gimnasio. El sistema permite realizar tanto operaciones de administración como operaciones de usuario, incluyendo gestión de clases, sesiones, salas, equipamiento, productos, reservas y valoraciones.
 
-## Funcionalidades principales
+## Funcionalidades implementadas:
 
-### Administración:
+El sistema completo fue definido durante la fase de planificación, incluyendo funcionalidades de administración y de usuario. En esta fase de implementación se desarrollan las transacciones referentes al usuario. En concreto, se han implementado las siguientes operaciones:
 
-- Gestión de usuarios registrados.
-- Gestión de clases y actividades ofertadas.
-- Programación y mantenimiento de sesiones.
-- Administración de salas y equipamiento.
-- Gestión de trabajadores y asignaciones.
-- Control de productos disponibles.
-- Supervisión de reservas y uso de instalaciones.
-- Consulta de informes de ocupación y funcionamiento.
+#### Usuarios
 
-### Usuarios:
+- Inserción de un usuario.
+- Edición de datos de un usuario.
+- Eliminación de cuenta de usuario.
 
-- Consulta de clases, sesiones y disponibilidad.
-- Gestión de reservas de plazas.
-- Consulta de salas y equipamiento.
-- Realización y seguimiento de pedidos de productos.
-- Consulta y gestión de valoraciones sobre clases.
-- Acceso al historial de actividad personal.
-- Gestión de datos de perfil.
+#### Clases, sesiones y reservas
+
+- Consultar clases.
+- Consultar sesiones.
+- Consultar disponibilidad de plazas en una sesión.
+- Insertar reserva.
+
+#### Productos
+
+- Consultar productos disponibles.
+- Realizar pedido de producto.
+- Consultar pedidos activos.
+- Cancelar pedido activo.
+
+#### Valoraciones
+
+- Insertar valoración de una clase.
+- Consultar valoraciones propias.
+- Editar valoración.
+- Eliminar valoración.
+- Consultar valoraciones de una clase.
+- Consultar ranking de clases mejor valoradas.
 
 ## Estructura del proyecto
 
