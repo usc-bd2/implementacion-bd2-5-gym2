@@ -189,8 +189,7 @@ INSERT INTO valorar (nombre_clase, id_usuario, fecha, opinion, puntuacion) VALUE
 ('Spinning', 3, '2026-04-08', 'Sesion intensa, sali reventado.',                4),
 ('Zumba',    4, '2026-04-09', 'Divertida y dinamica.',                          5),
 ('Fuerza',   5, '2026-04-10', 'Clase exigente y efectiva.',                     4),
-('Fuerza',   3, '2026-04-11', 'Buen trabajo de fuerza y resistencia.',          4),
-('Fuerza',   3, '2026-04-12', 'De las mejores clases de la semana.',            5);
+('Fuerza',   3, '2026-04-11', 'Buen trabajo de fuerza y resistencia.',          4);
 
 -- 15. AJUSTE DE SECUENCIAS IDENTITY
 SELECT setval(pg_get_serial_sequence('sala',     'id_sala'),
