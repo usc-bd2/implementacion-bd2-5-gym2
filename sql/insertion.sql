@@ -30,11 +30,11 @@ INSERT INTO limpieza (dni) VALUES
 -- 3. CLASES
 INSERT INTO clase (nombre, duracion, clasificacion) VALUES
 ('Crossfit', 45, 'Funcional'),
-('Pilates',  50, 'Suelo'),
+('Pilates',  60, 'Suelo'),
 ('Yoga',     60, 'Mente-Cuerpo'),
 ('Spinning', 45, 'Cardio'),
-('Zumba',    40, 'Baile'),
-('Fuerza',   50, 'Musculacion');
+('Zumba',    60, 'Baile'),
+('Fuerza',   90, 'Musculacion');
 
 -- 4. ASIGNACIÓN DE TRABAJADORES A SALAS
 INSERT INTO trabajar (dni_trabajador, id_sala) VALUES

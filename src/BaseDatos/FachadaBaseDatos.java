@@ -6,12 +6,14 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 
 public class FachadaBaseDatos {
     private Connection conexionBD;
     private DAOUsuario daoUsuario;
+    private DAOClases daoClases;
 
     public FachadaBaseDatos(FachadaAplicacion fa) {
         try {
@@ -37,6 +39,7 @@ public class FachadaBaseDatos {
 
             // Inicializar los DAOs
             this.daoUsuario = new DAOUsuario(conexionBD);
+            this.daoClases = new DAOClases(conexionBD);
 
         } catch (IOException | SQLException e) {
             throw new IllegalStateException("No se pudo inicializar la base de datos: " + e.getMessage(), e);
@@ -59,5 +62,9 @@ public class FachadaBaseDatos {
     
     public Usuario buscarUsuarioPorId(Integer idUsuario) {
         return daoUsuario.buscarPorId(idUsuario);
+    }
+
+    public List<Clase> consultarClases(String nombre, Integer duracion, String clasificacion) {
+       return daoClases.consultarClases(nombre, duracion, clasificacion);
     }
 }

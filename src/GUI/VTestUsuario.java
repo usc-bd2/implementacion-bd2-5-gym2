@@ -95,6 +95,10 @@ public class VTestUsuario extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {
+        // 
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JLabel lblEmail;
