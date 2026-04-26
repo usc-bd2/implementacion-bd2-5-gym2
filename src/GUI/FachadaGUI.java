@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 
 public class FachadaGUI {
     private FachadaAplicacion fachadaAp;
-private VContenedor vContenedor;
+    private VContenedor vContenedor;
 
     public FachadaGUI(FachadaAplicacion fa) {
         this.fachadaAp = fa;
@@ -22,7 +22,10 @@ private VContenedor vContenedor;
     }
     
     public void iniciarVentanas() {
-        vContenedor.navegarA(new VPrincipal(fachadaAp), "Catálogo de Clases");
+        VPrincipal vPrincipal = new VPrincipal(fachadaAp);
+        vContenedor.navegarA(vPrincipal, "Catálogo de Clases");
+        vContenedor.pack();
+        vContenedor.setLocationRelativeTo(null);
         vContenedor.setVisible(true);
     }
 }
