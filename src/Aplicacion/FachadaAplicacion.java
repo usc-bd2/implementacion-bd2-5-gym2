@@ -11,12 +11,14 @@ public class FachadaAplicacion {
     private FachadaBaseDatos fachadaBD;
     private GestorUsuario gestUsuario;
     private GestorClases gestClases;
+    private GestorSesiones gestSesiones;
 
     public FachadaAplicacion() {
         this.fachadaBD = new FachadaBaseDatos(this);
         this.fachadaGUI = new FachadaGUI(this);
         this.gestUsuario = new GestorUsuario(fachadaBD);
         this.gestClases = new GestorClases(fachadaBD);
+        this.gestSesiones = new GestorSesiones(fachadaBD);
     }
 
     public static void main(String[] args) {
@@ -54,5 +56,10 @@ public class FachadaAplicacion {
 
     public List<Clase> consultarClases(String nombre, Integer duracion, String clasificacion) {
         return gestClases.consultarClases(nombre, duracion, clasificacion);
+    }
+
+    public List<Sesion> consultarSesiones(String nombreClase, java.time.LocalDate fechaSesion,
+                                        String nombreSala, java.time.LocalTime horaInicio) {
+        return gestSesiones.consultarSesiones(nombreClase, fechaSesion, nombreSala, horaInicio);
     }
 }
