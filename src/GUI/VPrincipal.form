@@ -27,13 +27,21 @@
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblClasificacion" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblDuracion" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                              <Component id="lblSala" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
+                              <Component id="lblHora" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lblFecha" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cbFiltroClasificacion" min="-2" pref="99" max="-2" attributes="0"/>
-                          <Component id="cbFiltroDuracion" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="cbFiltroSala" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="cbFiltroHora" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="cbFiltroFecha" min="-2" pref="99" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -47,16 +55,20 @@
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
                   <Component id="txtBuscar" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblDuracion" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbFiltroDuracion" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblFecha" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbFiltroFecha" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblClasificacion" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbFiltroClasificacion" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblSala" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbFiltroSala" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="2" attributes="0">
+                  <Component id="btnBuscar" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblHora" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbFiltroHora" alignment="2" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="scrollTablaClases" min="-2" pref="330" max="-2" attributes="0"/>
               <EmptySpace pref="39" max="32767" attributes="0"/>
@@ -70,14 +82,14 @@
         <Property name="text" type="java.lang.String" value="Buscar clase"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbFiltroDuracion">
+    <Component class="javax.swing.JComboBox" name="cbFiltroFecha">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
-            <StringItem index="0" value="Todas"/>
-            <StringItem index="1" value="Corta (&lt;45)"/>
-            <StringItem index="2" value="Estandar (45-55)"/>
-            <StringItem index="3" value="Extendida (&gt;60)"/>
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
           </StringArray>
         </Property>
       </Properties>
@@ -85,16 +97,14 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbFiltroClasificacion">
+    <Component class="javax.swing.JComboBox" name="cbFiltroSala">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="6">
-            <StringItem index="0" value="Funcional"/>
-            <StringItem index="1" value="Suelo"/>
-            <StringItem index="2" value="Mente-cuerpo"/>
-            <StringItem index="3" value="Cardio"/>
-            <StringItem index="4" value="Baile"/>
-            <StringItem index="5" value="Musculacion"/>
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
           </StringArray>
         </Property>
       </Properties>
@@ -102,23 +112,40 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblDuracion">
+    <Component class="javax.swing.JComboBox" name="cbFiltroHora">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Duraci&#xf3;n:"/>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblFecha">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Fecha:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblClasificacion">
+    <Component class="javax.swing.JLabel" name="lblSala">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Clasificaci&#xf3;n:"/>
+        <Property name="text" type="java.lang.String" value="Sala:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblHora">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Hora:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnBuscar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scrollTablaClases">
 
@@ -127,11 +154,10 @@
         <Component class="javax.swing.JTable" name="tablaClases">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="10">
+              <Table columnCount="3" rowCount="4">
                 <Column editable="true" title="Nombre" type="java.lang.String"/>
                 <Column editable="true" title="Duraci&#xf3;n" type="java.lang.Integer"/>
                 <Column editable="true" title="Clasificaci&#xf3;n" type="java.lang.String"/>
-                <Column editable="true" title="Valoraci&#xf3;n" type="java.lang.Double"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

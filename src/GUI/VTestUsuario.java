@@ -64,6 +64,10 @@ public class VTestUsuario extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {
+        // No hace falta poner nada aquí
+    }
+    
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
             // 1. Validar y recoger la entrada del usuario
@@ -94,10 +98,6 @@ public class VTestUsuario extends javax.swing.JPanel {
             fa.muestraExcepcion("Error inesperado: " + e.getMessage());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {
-        // 
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
