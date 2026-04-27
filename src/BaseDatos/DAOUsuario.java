@@ -2,7 +2,8 @@ package BaseDatos;
 
 import Aplicacion.Usuario;
 import java.sql.*;
-
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class DAOUsuario extends AbstractDAO {
 
@@ -10,21 +11,38 @@ public class DAOUsuario extends AbstractDAO {
         super.setConexion(conexion);
     }
 
+    private String hashContrasena(String contrasena) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = md.digest(contrasena.getBytes());
+
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashBytes) {
+                sb.append(String.format("%02x", b));
+            }
+
+            return sb.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error al cifrar la contraseña.", e);
+        }
+    }
+
     public Usuario buscarPorId(Integer idUsuario) {
         Connection conn = this.getConexion();
 
-        String consulta = 
+        String consulta =
             """
             SELECT id_usuario, nombre, ap1, ap2, email, contraseña, tipo_usuario, fecha_nacimiento
-            FROM Usuario 
-            WHERE id_usuario = ?                    
+            FROM Usuario
+            WHERE id_usuario = ?
             """;
 
         try (PreparedStatement stm = conn.prepareStatement(consulta)) {
-            stm.setInt(1, idUsuario); //rellenar el ?
+            stm.setInt(1, idUsuario);
 
             try (ResultSet rs = stm.executeQuery()) {
-                if (!rs.next()) { //si no encuentra nada devuelve null
+                if (!rs.next()) {
                     return null;
                 }
 
@@ -41,118 +59,126 @@ public class DAOUsuario extends AbstractDAO {
                 if (fechaSql != null) {
                     usuario.setFechaNacimiento(fechaSql.toLocalDate());
                 }
+
                 return usuario;
             }
+
         } catch (SQLException e) {
             throw new RuntimeException("Error al buscar usuario con id " + idUsuario, e);
         }
     }
-    
+
     public boolean existeIdUsuario(Integer idUsuario) {
         return buscarPorId(idUsuario) != null;
     }
-    
+
     public boolean existeEmail(String emailUsuario) {
         Connection conn = this.getConexion();
-        
+
         String consulta =
             """
             SELECT email
             FROM Usuario
             WHERE email = ?
             """;
-        
+
         try (PreparedStatement stm = conn.prepareStatement(consulta)) {
             stm.setString(1, emailUsuario);
 
-            try(ResultSet rs = stm.executeQuery()) {
-                return rs.next(); //porq si encuentra una fila esq existe el email, si no es q no existe
+            try (ResultSet rs = stm.executeQuery()) {
+                return rs.next();
             }
 
-        } catch(SQLException e) {
-           throw new RuntimeException("Error al comprobar si existe el email del usuario.");
-        } 
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al comprobar si existe el email del usuario.");
+        }
     }
-    
+
     public boolean insertarUsuario(Usuario u) {
         Connection conn = this.getConexion();
-        
+
         String consulta =
             """
-            INSERT INTO usuario(id_usuario, nombre, ap1, ap2, email, contraseña, tipo_usuario, fecha_nacimiento)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO usuario(nombre, ap1, ap2, email, contraseña, tipo_usuario, fecha_nacimiento)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
             """;
-        
+
         try (PreparedStatement stm = conn.prepareStatement(consulta)) {
-            stm.setInt(1, u.getIdUsuario());
-            stm.setString(2, u.getNombre());
-            stm.setString(3, u.getAp1());
-            stm.setString(4, u.getAp2());
-            stm.setString(5, u.getEmail());
-            stm.setString(6, u.getContrasena());
-            stm.setString(7, u.getTipoUsuario());
-            stm.setDate(8, Date.valueOf(u.getFechaNacimiento())); //porq fecha nacimiento devuelve local date hay q transformarlo
-            
+
+            stm.setString(1, u.getNombre());
+            stm.setString(2, u.getAp1());
+            stm.setString(3, u.getAp2());
+            stm.setString(4, u.getEmail());
+
+            String hash = hashContrasena(u.getContrasena());
+            stm.setString(5, hash);
+
+            stm.setString(6, u.getTipoUsuario());
+            stm.setDate(7, Date.valueOf(u.getFechaNacimiento()));
+
             stm.executeUpdate();
-            
             return true;
-            
-        } catch(SQLException e) {
-           throw new RuntimeException("Error al añadir al usuario.", e);
-        }      
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al añadir al usuario.", e);
+        }
     }
-    
-     public boolean modificarDatos(Usuario u) {
+
+    public boolean modificarDatos(Usuario u) {
         Connection conn = this.getConexion();
-        
+
         String consulta =
             """
             UPDATE Usuario
             SET nombre = ?, ap1 = ?, ap2 = ?, email = ?, contraseña = ?, fecha_nacimiento = ?
             WHERE id_usuario = ?
             """;
-        
+
         try (PreparedStatement stm = conn.prepareStatement(consulta)) {
             stm.setString(1, u.getNombre());
             stm.setString(2, u.getAp1());
             stm.setString(3, u.getAp2());
             stm.setString(4, u.getEmail());
-            stm.setString(5, u.getContrasena());
-            stm.setDate(6, Date.valueOf(u.getFechaNacimiento())); //porq fecha nacimiento devuelve local date hay q transformarlo
+
+            String hash = hashContrasena(u.getContrasena());
+            stm.setString(5, hash);
+
+            stm.setDate(6, Date.valueOf(u.getFechaNacimiento()));
             stm.setInt(7, u.getIdUsuario());
-      
+
             int filas = stm.executeUpdate();
-            return filas == 1; //devuelve true si se modificó alguna fila
-            
-        } catch(SQLException e) {
-           throw new RuntimeException("Error al modificar los datos del usuario.", e);
-        }      
+            return filas == 1;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al modificar los datos del usuario.", e);
+        }
     }
-     
-     public boolean existeReserva(Integer idUsuario) {
+
+    public boolean existeReserva(Integer idUsuario) {
         Connection conn = this.getConexion();
-        
+
         String consulta =
             """
             SELECT 1
             FROM reserva
             WHERE id_usuario = ?
             """;
-        
+
         try (PreparedStatement stm = conn.prepareStatement(consulta)) {
             stm.setInt(1, idUsuario);
 
             try (ResultSet rs = stm.executeQuery()) {
                 return rs.next();
             }
+
         } catch (SQLException e) {
             throw new RuntimeException("Error al comprobar reservas activas.", e);
         }
     }
-     
-     public boolean pedidosNoEntregados(Integer idUsuario) {
+
+    public boolean pedidosNoEntregados(Integer idUsuario) {
         Connection conn = this.getConexion();
-         
+
         String consulta =
             """
             SELECT 1
@@ -160,40 +186,40 @@ public class DAOUsuario extends AbstractDAO {
             WHERE id_usuario = ?
             AND entregado = false
             """;
+
         try (PreparedStatement stm = conn.prepareStatement(consulta)) {
             stm.setInt(1, idUsuario);
 
             try (ResultSet rs = stm.executeQuery()) {
                 return rs.next();
             }
+
         } catch (SQLException e) {
             throw new RuntimeException("Error al comprobar pedidos no entregados.", e);
         }
-     }
-     
+    }
+
     public boolean eliminarUsuario(Integer idUsuario) {
         Connection conn = this.getConexion();
 
         String consulta =
-           """
-           DELETE FROM usuario
-           WHERE id_usuario = ?
-           """;
+            """
+            DELETE FROM usuario
+            WHERE id_usuario = ?
+            """;
 
         try (PreparedStatement stm = conn.prepareStatement(consulta)) {
+            stm.setInt(1, idUsuario);
 
-           stm.setInt(1, idUsuario);
-
-           int filas = stm.executeUpdate();
-
-           return filas == 1;
+            int filas = stm.executeUpdate();
+            return filas == 1;
 
         } catch (SQLException e) {
-           throw new RuntimeException("Error al eliminar el usuario.", e);
+            throw new RuntimeException("Error al eliminar el usuario.", e);
         }
     }
-    
-    public Usuario autenticarUsuario(String email, String contrasena) { //t1
+
+    public Usuario autenticarUsuario(String email, String contrasena) {
         Connection conn = this.getConexion();
 
         String consulta =
@@ -206,7 +232,7 @@ public class DAOUsuario extends AbstractDAO {
 
         try (PreparedStatement stm = conn.prepareStatement(consulta)) {
             stm.setString(1, email);
-            stm.setString(2, contrasena);
+            stm.setString(2, hashContrasena(contrasena));
 
             try (ResultSet rs = stm.executeQuery()) {
                 if (!rs.next()) {
@@ -235,5 +261,3 @@ public class DAOUsuario extends AbstractDAO {
         }
     }
 }
-
-   

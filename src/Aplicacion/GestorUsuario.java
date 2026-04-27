@@ -22,17 +22,11 @@ public class GestorUsuario {
     }
     
     public String registrarUsuario(Usuario u) { //t2
-        if(fachadaBD.existeIdUsuario(u.getIdUsuario())){
-            return "Este id ya existe.";
-        }
-        
-        if(fachadaBD.existeEmail(u.getEmail())) {
+        //NO COMPROBAMOS ID, LO GENERA LA BD
+        if (fachadaBD.existeEmail(u.getEmail())) {
             return "Este email ya está registrado.";
         }
-        
-        String cifrada = String.valueOf(u.getContrasena().hashCode()); //cifrar contraseña
-        u.setContrasena(cifrada);
-        
+
         fachadaBD.insertarUsuario(u);
         return "Usuario registrado correctamente.";
     }

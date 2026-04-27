@@ -84,7 +84,7 @@ public class VPerfil extends javax.swing.JPanel {
         btnEliminarUsuario.setText("Eliminar ");
         btnEliminarUsuario.addActionListener(this::btnEliminarUsuarioActionPerformed);
 
-        cmbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "cliente", "administrador", "monitor" }));
+        cmbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NORMAL", "ADMIN" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -217,20 +217,27 @@ public class VPerfil extends javax.swing.JPanel {
         try {
             Usuario u = new Usuario();
 
-            u.setIdUsuario(Integer.parseInt(txtIdUsuario.getText().trim()));
+            // EL ID NO SE PIDE, LO GENERA LA BD
             u.setNombre(txtNombre.getText().trim());
             u.setAp1(txtAp1.getText().trim());
             u.setAp2(txtAp2.getText().trim());
-            u.setEmail(txtFechaNacimiento.getText().trim());
-            u.setContrasena(txtEmail.getText().trim());
+            u.setEmail(txtEmail.getText().trim());
+            u.setContrasena(txtContrasena.getText().trim());
             u.setTipoUsuario(cmbTipoUsuario.getSelectedItem().toString());
             u.setFechaNacimiento(LocalDate.parse(txtFechaNacimiento.getText().trim()));
 
             String resultado = fa.registrarUsuario(u);
             JOptionPane.showMessageDialog(this, resultado);
 
-        } catch (NumberFormatException e) {
-            fa.muestraExcepcion("El ID debe ser un número.");
+            // limpiar campos después de crear
+            txtIdUsuario.setText("");
+            txtNombre.setText("");
+            txtAp1.setText("");
+            txtAp2.setText("");
+            txtFechaNacimiento.setText("");
+            txtEmail.setText("");
+            txtContrasena.setText("");
+
         } catch (Exception e) {
             fa.muestraExcepcion("Error al crear usuario: " + e.getMessage());
         }
