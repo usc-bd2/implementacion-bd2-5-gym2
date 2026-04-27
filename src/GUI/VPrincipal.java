@@ -1,75 +1,59 @@
 package GUI;
 
 import Aplicacion.FachadaAplicacion;
-import Aplicacion.Clase;
-import java.util.List;
 
 public class VPrincipal extends javax.swing.JPanel {
     
     private FachadaAplicacion fa;
-    private ModeloTablaClases modeloTablaClases;
 
     public VPrincipal(FachadaAplicacion fa) {
         this.fa = fa;
         initComponents();
-
-        this.modeloTablaClases = new ModeloTablaClases();
-        tablaClases.setModel(modeloTablaClases);
-        tablaClases.setFillsViewportHeight(true);
-        tablaClases.setRowSelectionAllowed(true);
-        tablaClases.setColumnSelectionAllowed(false);
-
-        mostrarClases();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         txtBuscar = new javax.swing.JTextField();
-        cbFiltroDuracion = new javax.swing.JComboBox<>();
-        cbFiltroClasificacion = new javax.swing.JComboBox<>();
-        lblDuracion = new javax.swing.JLabel();
-        lblClasificacion = new javax.swing.JLabel();
+        cbFiltroFecha = new javax.swing.JComboBox<>();
+        cbFiltroSala = new javax.swing.JComboBox<>();
+        cbFiltroHora = new javax.swing.JComboBox<>();
+        lblFecha = new javax.swing.JLabel();
+        lblSala = new javax.swing.JLabel();
+        lblHora = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
         scrollTablaClases = new javax.swing.JScrollPane();
         tablaClases = new javax.swing.JTable();
 
         txtBuscar.setText("Buscar clase");
 
-        cbFiltroDuracion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { 
-            "Todas", "45", "60", "90"
-        }));
+        cbFiltroFecha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Item 2" }));
 
-        cbFiltroClasificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { 
-            "Todas", "Funcional", "Suelo", "Mente-Cuerpo", "Cardio", "Baile", "Musculacion"
-        }));
+        cbFiltroSala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Item 2" }));
 
-        lblDuracion.setText("Duración:");
+        cbFiltroHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Item 2" }));
 
-        lblClasificacion.setText("Clasificación:");
+        lblFecha.setText("Fecha:");
+
+        lblSala.setText("Sala:");
+
+        lblHora.setText("Hora:");
 
         btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
 
         tablaClases.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Nombre", "Duración", "Clasificación", "Valoración"
+                "Nombre", "Duración", "Clasificación"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -94,12 +78,18 @@ public class VPrincipal extends javax.swing.JPanel {
                             .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblClasificacion)
-                            .addComponent(lblDuracion))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(lblSala))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(lblHora))
+                            .addComponent(lblFecha, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbFiltroClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbFiltroDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cbFiltroSala, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbFiltroHora, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbFiltroFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -108,59 +98,32 @@ public class VPrincipal extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDuracion)
-                    .addComponent(cbFiltroDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblFecha)
+                    .addComponent(cbFiltroFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblClasificacion)
-                    .addComponent(cbFiltroClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblSala)
+                    .addComponent(cbFiltroSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnBuscar)
+                    .addComponent(lblHora)
+                    .addComponent(cbFiltroHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(scrollTablaClases, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
-        mostrarClases();
-    }
-
-    private void mostrarClases() {
-        try {
-            // Filtros de búsqueda
-            String nombre = txtBuscar.getText();
-            if (nombre == null || nombre.isBlank() || nombre.equals("Buscar clase")) {
-                nombre = null;
-            }
-
-            // Filtro de duración
-            Integer duracion = null;
-            String duracionSeleccionada = (String) cbFiltroDuracion.getSelectedItem();
-            if (duracionSeleccionada != null && !duracionSeleccionada.equals("Todas")) {
-                duracion = Integer.parseInt(duracionSeleccionada);
-            }
-
-            // Filtro de clasificación
-            String clasificacion = (String) cbFiltroClasificacion.getSelectedItem();
-            if (clasificacion == null || clasificacion.equals("Todas")) {
-                clasificacion = null;
-            }
-
-            List<Clase> clases = fa.consultarClases(nombre, duracion, clasificacion);
-            modeloTablaClases.setFilas(clases);
-
-        } catch (RuntimeException e) {
-            fa.muestraExcepcion(e.getMessage());
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JComboBox<String> cbFiltroClasificacion;
-    private javax.swing.JComboBox<String> cbFiltroDuracion;
-    private javax.swing.JLabel lblClasificacion;
-    private javax.swing.JLabel lblDuracion;
+    private javax.swing.JComboBox<String> cbFiltroFecha;
+    private javax.swing.JComboBox<String> cbFiltroHora;
+    private javax.swing.JComboBox<String> cbFiltroSala;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblHora;
+    private javax.swing.JLabel lblSala;
     private javax.swing.JScrollPane scrollTablaClases;
     private javax.swing.JTable tablaClases;
     private javax.swing.JTextField txtBuscar;
