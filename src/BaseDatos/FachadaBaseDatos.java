@@ -10,14 +10,13 @@ import java.util.Properties;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.sql.Time;
-import java.util.List;
 
 public class FachadaBaseDatos {
     private Connection conexionBD;
     private DAOUsuario daoUsuario;
     private DAOProducto daoProducto;
     private DAOPedido daoPedido;
-    private DAOClases daoClases;
+    private DAOClase daoClase;
 
     public FachadaBaseDatos(FachadaAplicacion fa) {
         try {
@@ -45,7 +44,7 @@ public class FachadaBaseDatos {
             this.daoUsuario = new DAOUsuario(conexionBD);
             this.daoProducto = new DAOProducto(conexionBD);
             this.daoPedido = new DAOPedido(conexionBD);
-            this.daoClases = new DAOClases(conexionBD);
+            this.daoClase = new DAOClase(conexionBD);
 
         } catch (IOException | SQLException e) {
             throw new IllegalStateException("No se pudo inicializar la base de datos: " + e.getMessage(), e);
@@ -115,18 +114,14 @@ public class FachadaBaseDatos {
     }
     
     public ArrayList<Valoracion> valoracionesClase(String nombreClase) {
-        return daoClases.valoracionesClase(nombreClase);
+        return daoClase.valoracionesClase(nombreClase);
     }
 
     public ValoracionResumen resumenValoracionesClase(String nombreClase) {
-        return daoClases.resumenValoracionesClase(nombreClase);
+        return daoClase.resumenValoracionesClase(nombreClase);
     }
     
     public Usuario autenticarUsuario(String email, String contrasena) {
         return daoUsuario.autenticarUsuario(email, contrasena);
-    }
-        
-    public List<Clase> consultarClases(String nombre, Integer duracion, String clasificacion) {
-       return daoClases.consultarClases(nombre, duracion, clasificacion);
     }
 }
