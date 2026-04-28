@@ -59,7 +59,6 @@ public class VContenedor extends javax.swing.JFrame {
         menuItemInicio = new javax.swing.JMenuItem();
         menuItemPerfil = new javax.swing.JMenuItem();
         menuItemClases = new javax.swing.JMenuItem();
-        menuItemSesiones = new javax.swing.JMenuItem();
         menuItemProductos = new javax.swing.JMenuItem();
         menuItemValoraciones = new javax.swing.JMenuItem();
         menuItemMisOpiniones = new javax.swing.JMenuItem();
@@ -107,11 +106,6 @@ public class VContenedor extends javax.swing.JFrame {
         menuItemClases.setText("Clases");
         menuItemClases.addActionListener(this::menuItemClasesActionPerformed);
         menuItem.add(menuItemClases);
-
-        menuItemSesiones.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        menuItemSesiones.setText("Sesiones");
-        menuItemSesiones.addActionListener(this::menuItemSesionesActionPerformed);
-        menuItem.add(menuItemSesiones);
 
         menuItemProductos.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         menuItemProductos.setText("Productos");
@@ -167,11 +161,11 @@ public class VContenedor extends javax.swing.JFrame {
     }
 
     private void menuItemClasesActionPerformed(java.awt.event.ActionEvent evt) {
-        navegarA(new VPrincipal(fa), "Catálogo de Clases");
+        navegarA(new VListaClases(fa), "Catálogo de Clases");
     }
 
     private void menuItemSesionesActionPerformed(java.awt.event.ActionEvent evt) {
-        navegarA(new VCatalogoSesiones(fa), "Sesiones");
+        navegarA(new VPrincipal(fa), "Sesiones");
     }
 
     private void menuItemProductosActionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,7 +201,6 @@ public class VContenedor extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemMisOpiniones;
     private javax.swing.JMenuItem menuItemPerfil;
     private javax.swing.JMenuItem menuItemProductos;
-    private javax.swing.JMenuItem menuItemSesiones;
     private javax.swing.JMenuItem menuItemValoraciones;
     private javax.swing.JMenuBar menuVentana;
     private javax.swing.JPanel panelContenido;

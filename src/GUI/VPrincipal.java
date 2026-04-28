@@ -1,196 +1,284 @@
 package GUI;
 
 import Aplicacion.FachadaAplicacion;
-import Aplicacion.Clase;
+import Aplicacion.Sesion;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
-import javax.swing.SwingUtilities;
+import Aplicacion.Reserva;
+import javax.swing.JOptionPane;
+
 
 public class VPrincipal extends javax.swing.JPanel {
     
     private FachadaAplicacion fa;
-    private ModeloTablaClases modeloTablaClases;
+    private ModeloTablaSesiones modeloTablaSesiones;
+    private boolean filtrarFecha = false;
 
     public VPrincipal(FachadaAplicacion fa) {
         this.fa = fa;
         initComponents();
 
-        this.modeloTablaClases = new ModeloTablaClases();
-        tablaClases.setModel(modeloTablaClases);
-        tablaClases.setFillsViewportHeight(true);
-        tablaClases.setRowSelectionAllowed(true);
-        tablaClases.setColumnSelectionAllowed(false);
+        this.modeloTablaSesiones = new ModeloTablaSesiones();
+        tablaSesiones.setModel(modeloTablaSesiones);
+        tablaSesiones.setFillsViewportHeight(true);
+        tablaSesiones.setRowSelectionAllowed(true);
+        tablaSesiones.setColumnSelectionAllowed(false);
 
-        btnValorarClase.setEnabled(false);
-
-        tablaClases.getSelectionModel().addListSelectionListener(e -> {
+        tablaSesiones.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                btnValorarClase.setEnabled(tablaClases.getSelectedRow() != -1);
+                btnReservar.setEnabled(tablaSesiones.getSelectedRow() >= 0);
             }
         });
-
-        mostrarClases();
+        
+        spnFecha.addChangeListener(e -> filtrarFecha = true);
+        mostrarSesiones();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         txtBuscar = new javax.swing.JTextField();
-        cbFiltroDuracion = new javax.swing.JComboBox<>();
-        cbFiltroClasificacion = new javax.swing.JComboBox<>();
-        lblDuracion = new javax.swing.JLabel();
-        lblClasificacion = new javax.swing.JLabel();
+        cbFiltroSala = new javax.swing.JComboBox<>();
+        cbFiltroHora = new javax.swing.JComboBox<>();
+        scrollTablaSesiones = new javax.swing.JScrollPane();
+        tablaSesiones = new javax.swing.JTable();
+        lblFecha = new javax.swing.JLabel();
+        lblHora = new javax.swing.JLabel();
+        lblSala = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
-        scrollTablaClases = new javax.swing.JScrollPane();
-        tablaClases = new javax.swing.JTable();
-        btnValorarClase = new javax.swing.JButton();
+        spnFecha = new javax.swing.JSpinner();
+        btnLimpiarFiltros = new javax.swing.JButton();
+        btnReservar = new javax.swing.JButton();
 
-        txtBuscar.setText("Buscar clase");
+        txtBuscar.setText("Buscar sesión");
 
-        cbFiltroDuracion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Corta (<45)", "Estandar (45-55)", "Extendida (>60)" }));
+        cbFiltroSala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Sala A", "Sala B", "Sala C", "Sala D", "Sala E" }));
 
-        cbFiltroClasificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Funcional", "Suelo", "Mente-cuerpo", "Cardio", "Baile", "Musculacion" }));
+        cbFiltroHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" }));
 
-        lblDuracion.setText("Duración:");
-
-        lblClasificacion.setText("Clasificación:");
-
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
-
-        tablaClases.setModel(new javax.swing.table.DefaultTableModel(
+        tablaSesiones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Duración", "Clasificación", "Valoración"
+                "Clase", "Sala", "Fecha", "Hora", "PT", "PO", "PD", "% Ocupación"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        tablaClases.setColumnSelectionAllowed(true);
-        scrollTablaClases.setViewportView(tablaClases);
-        tablaClases.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scrollTablaSesiones.setViewportView(tablaSesiones);
 
-        btnValorarClase.setText("Valorar");
-        btnValorarClase.setEnabled(false);
-        btnValorarClase.addActionListener(this::btnValorarClaseActionPerformed);
+        lblFecha.setText("Fecha:");
+
+        lblHora.setText("Hora:");
+
+        lblSala.setText("Sala:");
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
+
+        spnFecha.setModel(new javax.swing.SpinnerDateModel());
+        spnFecha.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        spnFecha.setEditor(new javax.swing.JSpinner.DateEditor(spnFecha, "dd/MM/yy"));
+
+        btnLimpiarFiltros.setText("Limpiar filtros");
+        btnLimpiarFiltros.addActionListener(this::btnLimpiarFiltrosActionPerformed);
+
+        btnReservar.setText("Reservar");
+        btnReservar.setEnabled(false);
+        btnReservar.addActionListener(this::btnReservarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(scrollTablaClases, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnBuscar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnValorarClase))
-                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrollTablaSesiones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnLimpiarFiltros)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnReservar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblClasificacion)
-                            .addComponent(lblDuracion))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbFiltroClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbFiltroDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addComponent(lblHora)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbFiltroHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblSala)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbFiltroSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblFecha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(spnFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDuracion)
-                    .addComponent(cbFiltroDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbFiltroSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSala)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblClasificacion)
-                    .addComponent(cbFiltroClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(spnFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFecha))
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbFiltroHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblHora)
                     .addComponent(btnBuscar)
-                    .addComponent(btnValorarClase))
-                .addGap(30, 30, 30)
-                .addComponent(scrollTablaClases, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                    .addComponent(btnLimpiarFiltros)
+                    .addComponent(btnReservar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(scrollTablaSesiones, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnValorarClaseActionPerformed(java.awt.event.ActionEvent evt) {
-        int filaVista = tablaClases.getSelectedRow();
-        if (filaVista == -1) {
-            fa.muestraExcepcion("Debe seleccionar una clase.");
-            return;
-        }
-        int filaModelo = tablaClases.convertRowIndexToModel(filaVista);
-        String nombreClase = (String) modeloTablaClases.getValueAt(filaModelo, 0);
-        VContenedor contenedor = (VContenedor) SwingUtilities.getWindowAncestor(this);
-        contenedor.navegarA(new VInsertarValoracion(fa, nombreClase),"Insertar valoración");
+    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {
+        reservarSesionSeleccionada();
+    }
+
+    private void btnLimpiarFiltrosActionPerformed(java.awt.event.ActionEvent evt) {
+        limpiarFiltros();
     }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
-        mostrarClases();
+        mostrarSesiones();
     }
 
-    private void mostrarClases() {
+    private void limpiarFiltros() {
+        txtBuscar.setText("Buscar sesión");
+        cbFiltroSala.setSelectedItem("Todas");
+        cbFiltroHora.setSelectedItem("Todas");
+
+        spnFecha.setValue(new Date());
+        filtrarFecha = false;
+
+        mostrarSesiones();
+    }
+
+    private void mostrarSesiones() {
         try {
-            // Filtros de búsqueda
             String nombre = txtBuscar.getText();
-            if (nombre == null || nombre.isBlank() || nombre.equals("Buscar clase")) {
+
+            if (nombre == null || nombre.isBlank() || nombre.equals("Buscar sesión")) {
                 nombre = null;
             }
 
-            // Filtro de duración
-            Integer duracion = null;
-            String duracionSeleccionada = (String) cbFiltroDuracion.getSelectedItem();
-            if (duracionSeleccionada != null && !duracionSeleccionada.equals("Todas")) {
-                duracion = Integer.parseInt(duracionSeleccionada);
+            String sala = (String) cbFiltroSala.getSelectedItem();
+
+            if (sala == null || sala.equals("Todas")) {
+                sala = null;
             }
 
-            // Filtro de clasificación
-            String clasificacion = (String) cbFiltroClasificacion.getSelectedItem();
-            if (clasificacion == null || clasificacion.equals("Todas")) {
-                clasificacion = null;
+            LocalDate fechaSesion = null;
+
+            if (filtrarFecha) {
+                Object valorFecha = spnFecha.getValue();
+
+                if (valorFecha instanceof Date) {
+                    Date fecha = (Date) valorFecha;
+                    fechaSesion = fecha.toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate();
+                }
             }
 
-            List<Clase> clases = fa.consultarClases(nombre, duracion, clasificacion);
-            modeloTablaClases.setFilas(clases);
+            LocalTime horaInicio = null;
 
+            String hora = (String) cbFiltroHora.getSelectedItem();
+
+            if (hora != null && !hora.isBlank() && !hora.equals("Todas")) {
+                horaInicio = LocalTime.parse(hora.trim(), DateTimeFormatter.ofPattern("H:mm"));
+            }
+
+            List<Sesion> sesiones = fa.consultarSesiones(nombre, fechaSesion, sala, horaInicio);
+            modeloTablaSesiones.setFilas(sesiones);
+            tablaSesiones.clearSelection();
+            btnReservar.setEnabled(false);
         } catch (RuntimeException e) {
             fa.muestraExcepcion(e.getMessage());
         }
     }
 
+    private Sesion obtenerSesionSeleccionada() {
+        int filaVista = tablaSesiones.getSelectedRow();
+        if (filaVista < 0) {
+            fa.muestraExcepcion("Debe seleccionar una sesión para reservar.");
+            return null;
+        }
+        int filaModelo = tablaSesiones.convertRowIndexToModel(filaVista);
+        return modeloTablaSesiones.obtenerSesion(filaModelo);
+    }
+
+    private void reservarSesionSeleccionada() {
+        try {
+            Sesion sesion = obtenerSesionSeleccionada();
+            if (sesion == null) {
+                fa.muestraExcepcion("Debe seleccionar una sesión.");
+                return;
+            }
+
+            Reserva reserva = new Reserva();
+            reserva.setIdUsuario(fa.getIdUsuarioAutenticado());
+            reserva.setIdSesion(sesion.getIdSesion());
+
+            Integer idReserva = fa.registrarReserva(reserva);
+
+            if (idReserva == null) {
+                throw new RuntimeException("No se pudo registrar la reserva.");
+            }
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Reserva realizada correctamente.\nID reserva: " + idReserva,
+                "Reserva confirmada",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+
+            mostrarSesiones();
+            btnReservar.setEnabled(false);
+
+        } catch (RuntimeException e) {
+            fa.muestraExcepcion(e.getMessage());
+            mostrarSesiones();
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnValorarClase;
-    private javax.swing.JComboBox<String> cbFiltroClasificacion;
-    private javax.swing.JComboBox<String> cbFiltroDuracion;
-    private javax.swing.JLabel lblClasificacion;
-    private javax.swing.JLabel lblDuracion;
-    private javax.swing.JScrollPane scrollTablaClases;
-    private javax.swing.JTable tablaClases;
+    private javax.swing.JButton btnLimpiarFiltros;
+    private javax.swing.JButton btnReservar;
+    private javax.swing.JComboBox<String> cbFiltroHora;
+    private javax.swing.JComboBox<String> cbFiltroSala;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblHora;
+    private javax.swing.JLabel lblSala;
+    private javax.swing.JScrollPane scrollTablaSesiones;
+    private javax.swing.JSpinner spnFecha;
+    private javax.swing.JTable tablaSesiones;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

@@ -105,7 +105,7 @@ public class VAutenticacion extends javax.swing.JFrame {
         Usuario u = fa.autenticarUsuario(email, pass);
 
         if (u != null) {
-            VPrincipal vPrincipal = new VPrincipal(fa);
+            VListaClases vPrincipal = new VListaClases(fa);
 
             vContenedor.navegarA(vPrincipal, "Catálogo de Clases");
             vContenedor.pack();
