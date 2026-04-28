@@ -8,13 +8,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
+import java.util.ArrayList;
+import java.sql.Date;
+import java.sql.Time;
 
 
 public class FachadaBaseDatos {
     private Connection conexionBD;
     private DAOUsuario daoUsuario;
-    private DAOClases daoClases;
     private DAOSesiones daoSesiones;
+    private DAOClase daoClase;
+    private DAOProducto daoProducto;
+    private DAOPedido daoPedido;
 
     public FachadaBaseDatos(FachadaAplicacion fa) {
         try {
@@ -40,8 +45,10 @@ public class FachadaBaseDatos {
 
             // Inicializar los DAOs
             this.daoUsuario = new DAOUsuario(conexionBD);
-            this.daoClases = new DAOClases(conexionBD);
             this.daoSesiones = new DAOSesiones(conexionBD);
+            this.daoClase = new DAOClase(conexionBD);
+            this.daoProducto = new DAOProducto(conexionBD);
+            this.daoPedido = new DAOPedido(conexionBD);
 
         } catch (IOException | SQLException e) {
             throw new IllegalStateException("No se pudo inicializar la base de datos: " + e.getMessage(), e);
@@ -67,7 +74,63 @@ public class FachadaBaseDatos {
     }
 
     public List<Clase> consultarClases(String nombre, Integer duracion, String clasificacion) {
-       return daoClases.consultarClases(nombre, duracion, clasificacion);
+       return daoClase.consultarClases(nombre, duracion, clasificacion);
+    }
+
+    public boolean existeIdUsuario(Integer idUsuario) {
+        return daoUsuario.existeIdUsuario(idUsuario);
+    }
+    
+    public boolean existeEmail(String email) {
+        return daoUsuario.existeEmail(email);
+    }
+    
+    public boolean insertarUsuario(Usuario u) {
+        return daoUsuario.insertarUsuario(u);
+    }
+    
+    public boolean modificarDatos(Usuario u) {
+        return daoUsuario.modificarDatos(u);
+    }
+    
+    public boolean existeReserva(Integer idUsuario) {
+        return daoUsuario.existeReserva(idUsuario);
+    }
+    
+    public boolean pedidosNoEntregados(Integer idUsuario) {
+        return daoUsuario.pedidosNoEntregados(idUsuario);
+    }
+    
+    public boolean eliminarUsuario(Integer idUsuario) {
+        return daoUsuario.eliminarUsuario(idUsuario);
+    }
+    
+    public ArrayList<Producto> ensenarProductos() {
+        return daoProducto.ensenarProductos();
+    }
+    
+    public boolean pedidoProducto(Integer cantidadPedida, Integer idProducto, Integer idUsuario) {
+        return daoProducto.pedidoProducto(cantidadPedida, idProducto, idUsuario);
+    }
+    
+    public ArrayList<Pedido> pedidosPendientesEntrega(Integer idUsuario) {
+        return daoPedido.pedidosPendientesEntrega(idUsuario);
+    }
+    
+    public boolean cancelarPedido(Integer idUsuario, Integer idProducto, Date fecha, Time hora) {
+        return daoPedido.cancelarPedido(idUsuario, idProducto, fecha, hora);
+    }
+    
+    public ArrayList<Valoracion> valoracionesClase(String nombreClase) {
+        return daoClase.valoracionesClase(nombreClase);
+    }
+
+    public ValoracionResumen resumenValoracionesClase(String nombreClase) {
+        return daoClase.resumenValoracionesClase(nombreClase);
+    }
+    
+    public Usuario autenticarUsuario(String email, String contrasena) {
+        return daoUsuario.autenticarUsuario(email, contrasena);
     }
 
     public List<Sesion> consultarSesiones(String nombreClase, java.time.LocalDate fechaSesion,

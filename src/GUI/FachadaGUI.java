@@ -22,10 +22,13 @@ public class FachadaGUI {
     }
     
     public void iniciarVentanas() {
-        VPrincipal vPrincipal = new VPrincipal(fachadaAp);
-        vContenedor.navegarA(vPrincipal, "Catálogo de Clases");
-        vContenedor.pack();
-        vContenedor.setLocationRelativeTo(null);
-        vContenedor.setVisible(true);
+        VAutenticacion vLogin = new VAutenticacion(fachadaAp, vContenedor);
+        vLogin.pack();
+        vLogin.setLocationRelativeTo(null);
+        vLogin.setVisible(true);
+    }
+
+    public VContenedor getVContenedor() {
+        return vContenedor;
     }
 }
