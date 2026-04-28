@@ -28,4 +28,8 @@ public class FachadaGUI {
         vContenedor.setLocationRelativeTo(null);
         vContenedor.setVisible(true);
     }
+
+    public VContenedor getVContenedor() {
+        return vContenedor;
+    }
 }
