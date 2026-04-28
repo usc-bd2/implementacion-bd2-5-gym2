@@ -3,6 +3,7 @@ package GUI;
 import Aplicacion.FachadaAplicacion;
 import Aplicacion.Clase;
 import java.util.List;
+import javax.swing.SwingUtilities;
 
 public class VPrincipal extends javax.swing.JPanel {
     
@@ -19,6 +20,14 @@ public class VPrincipal extends javax.swing.JPanel {
         tablaClases.setRowSelectionAllowed(true);
         tablaClases.setColumnSelectionAllowed(false);
 
+        btnValorarClase.setEnabled(false);
+
+        tablaClases.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                btnValorarClase.setEnabled(tablaClases.getSelectedRow() != -1);
+            }
+        });
+
         mostrarClases();
     }
 
@@ -33,16 +42,13 @@ public class VPrincipal extends javax.swing.JPanel {
         btnBuscar = new javax.swing.JButton();
         scrollTablaClases = new javax.swing.JScrollPane();
         tablaClases = new javax.swing.JTable();
+        btnValorarClase = new javax.swing.JButton();
 
         txtBuscar.setText("Buscar clase");
 
-        cbFiltroDuracion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { 
-            "Todas", "45", "60", "90"
-        }));
+        cbFiltroDuracion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Corta (<45)", "Estandar (45-55)", "Extendida (>60)" }));
 
-        cbFiltroClasificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { 
-            "Todas", "Funcional", "Suelo", "Mente-Cuerpo", "Cardio", "Baile", "Musculacion"
-        }));
+        cbFiltroClasificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Funcional", "Suelo", "Mente-cuerpo", "Cardio", "Baile", "Musculacion" }));
 
         lblDuracion.setText("Duración:");
 
@@ -80,6 +86,10 @@ public class VPrincipal extends javax.swing.JPanel {
         scrollTablaClases.setViewportView(tablaClases);
         tablaClases.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
+        btnValorarClase.setText("Valorar");
+        btnValorarClase.setEnabled(false);
+        btnValorarClase.addActionListener(this::btnValorarClaseActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,7 +100,10 @@ public class VPrincipal extends javax.swing.JPanel {
                     .addComponent(scrollTablaClases, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBuscar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBuscar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnValorarClase))
                             .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -115,12 +128,26 @@ public class VPrincipal extends javax.swing.JPanel {
                     .addComponent(lblClasificacion)
                     .addComponent(cbFiltroClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnValorarClase))
                 .addGap(30, 30, 30)
                 .addComponent(scrollTablaClases, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnValorarClaseActionPerformed(java.awt.event.ActionEvent evt) {
+        int filaVista = tablaClases.getSelectedRow();
+        if (filaVista == -1) {
+            fa.muestraExcepcion("Debe seleccionar una clase.");
+            return;
+        }
+        int filaModelo = tablaClases.convertRowIndexToModel(filaVista);
+        String nombreClase = (String) modeloTablaClases.getValueAt(filaModelo, 0);
+        VContenedor contenedor = (VContenedor) SwingUtilities.getWindowAncestor(this);
+        contenedor.navegarA(new VInsertarValoracion(fa, nombreClase),"Insertar valoración");
+    }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         mostrarClases();
@@ -157,6 +184,7 @@ public class VPrincipal extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnValorarClase;
     private javax.swing.JComboBox<String> cbFiltroClasificacion;
     private javax.swing.JComboBox<String> cbFiltroDuracion;
     private javax.swing.JLabel lblClasificacion;

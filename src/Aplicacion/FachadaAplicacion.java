@@ -17,7 +17,8 @@ public class FachadaAplicacion {
     private GestorClase gestClase;
     private GestorProducto gestProducto;
     private GestorPedido gestPedido;
-    
+    private GestorValoracion gestValoracion;
+    private Usuario usuarioAutenticado;
 
     public FachadaAplicacion() {
         this.fachadaBD = new FachadaBaseDatos(this);
@@ -27,6 +28,7 @@ public class FachadaAplicacion {
         this.gestClase = new GestorClase(fachadaBD);
         this.gestProducto = new GestorProducto(fachadaBD);
         this.gestPedido = new GestorPedido(fachadaBD);
+        this.gestValoracion = new GestorValoracion(fachadaBD);
     }
 
     public static void main(String[] args) {
@@ -60,6 +62,10 @@ public class FachadaAplicacion {
     // Usuario
     public Usuario buscarUsuarioPorId(Integer idUsuario) {
         return gestUsuario.buscarUsuarioPorId(idUsuario);
+    }
+
+    public Integer getIdUsuarioAutenticado() {
+        return usuarioAutenticado != null ? usuarioAutenticado.getIdUsuario() : null;
     }
     
     public String registrarUsuario(Usuario u){
@@ -106,11 +112,17 @@ public class FachadaAplicacion {
     }
     
     public Usuario autenticarUsuario(String email, String contrasena) {
-        return gestUsuario.autenticarUsuario(email, contrasena);
+        Usuario usuario = gestUsuario.autenticarUsuario(email, contrasena);
+        this.usuarioAutenticado = usuario;
+        return usuario;
     }
 
     public List<Sesion> consultarSesiones(String nombreClase, java.time.LocalDate fechaSesion,
                                         String nombreSala, java.time.LocalTime horaInicio) {
         return gestSesiones.consultarSesiones(nombreClase, fechaSesion, nombreSala, horaInicio);
+    }
+
+    public int registrarValoracion(Valoracion valoracion) {
+        return gestValoracion.registrarValoracion(valoracion);
     }
 }
