@@ -8,6 +8,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import Aplicacion.Reserva;
+import javax.swing.JOptionPane;
 
 
 public class VCatalogoSesiones extends javax.swing.JPanel {
@@ -26,8 +28,13 @@ public class VCatalogoSesiones extends javax.swing.JPanel {
         tablaSesiones.setRowSelectionAllowed(true);
         tablaSesiones.setColumnSelectionAllowed(false);
 
+        tablaSesiones.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                btnReservar.setEnabled(tablaSesiones.getSelectedRow() >= 0);
+            }
+        });
+        
         spnFecha.addChangeListener(e -> filtrarFecha = true);
-
         mostrarSesiones();
     }
 
@@ -45,6 +52,7 @@ public class VCatalogoSesiones extends javax.swing.JPanel {
         btnBuscar = new javax.swing.JButton();
         spnFecha = new javax.swing.JSpinner();
         btnLimpiarFiltros = new javax.swing.JButton();
+        btnReservar = new javax.swing.JButton();
 
         txtBuscar.setText("Buscar sesión");
 
@@ -89,6 +97,10 @@ public class VCatalogoSesiones extends javax.swing.JPanel {
         btnLimpiarFiltros.setText("Limpiar filtros");
         btnLimpiarFiltros.addActionListener(this::btnLimpiarFiltrosActionPerformed);
 
+        btnReservar.setText("Reservar");
+        btnReservar.setEnabled(false);
+        btnReservar.addActionListener(this::btnReservarActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,6 +113,8 @@ public class VCatalogoSesiones extends javax.swing.JPanel {
                         .addComponent(btnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLimpiarFiltros)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnReservar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblHora)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -134,12 +148,17 @@ public class VCatalogoSesiones extends javax.swing.JPanel {
                     .addComponent(cbFiltroHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblHora)
                     .addComponent(btnBuscar)
-                    .addComponent(btnLimpiarFiltros))
+                    .addComponent(btnLimpiarFiltros)
+                    .addComponent(btnReservar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(scrollTablaSesiones, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {
+        reservarSesionSeleccionada();
+    }
 
     private void btnLimpiarFiltrosActionPerformed(java.awt.event.ActionEvent evt) {
         limpiarFiltros();
@@ -197,15 +216,61 @@ public class VCatalogoSesiones extends javax.swing.JPanel {
 
             List<Sesion> sesiones = fa.consultarSesiones(nombre, fechaSesion, sala, horaInicio);
             modeloTablaSesiones.setFilas(sesiones);
+            tablaSesiones.clearSelection();
+            btnReservar.setEnabled(false);
+        } catch (RuntimeException e) {
+            fa.muestraExcepcion(e.getMessage());
+        }
+    }
+
+    private Sesion obtenerSesionSeleccionada() {
+        int filaVista = tablaSesiones.getSelectedRow();
+        if (filaVista < 0) {
+            fa.muestraExcepcion("Debe seleccionar una sesión para reservar.");
+            return null;
+        }
+        int filaModelo = tablaSesiones.convertRowIndexToModel(filaVista);
+        return modeloTablaSesiones.obtenerSesion(filaModelo);
+    }
+
+    private void reservarSesionSeleccionada() {
+        try {
+            Sesion sesion = obtenerSesionSeleccionada();
+            if (sesion == null) {
+                fa.muestraExcepcion("Debe seleccionar una sesión.");
+                return;
+            }
+
+            Reserva reserva = new Reserva();
+            reserva.setIdUsuario(fa.getIdUsuarioAutenticado());
+            reserva.setIdSesion(sesion.getIdSesion());
+
+            Integer idReserva = fa.registrarReserva(reserva);
+
+            if (idReserva == null) {
+                throw new RuntimeException("No se pudo registrar la reserva.");
+            }
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Reserva realizada correctamente.\nID reserva: " + idReserva,
+                "Reserva confirmada",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+
+            mostrarSesiones();
+            btnReservar.setEnabled(false);
 
         } catch (RuntimeException e) {
             fa.muestraExcepcion(e.getMessage());
+            mostrarSesiones();
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnLimpiarFiltros;
+    private javax.swing.JButton btnReservar;
     private javax.swing.JComboBox<String> cbFiltroHora;
     private javax.swing.JComboBox<String> cbFiltroSala;
     private javax.swing.JLabel lblFecha;
