@@ -112,7 +112,11 @@ public class VInsertarValoracion extends javax.swing.JPanel {
             valoracion.modificarOpinion(opinion);
             valoracion.modificarPuntuacion(puntuacion);
 
-            fa.registrarValoracion(valoracion);
+            Integer success = fa.registrarValoracion(valoracion);
+
+            if (success == null || success <= 0) {
+                throw new RuntimeException("No se pudo registrar la valoración.");
+            }
 
             JOptionPane.showMessageDialog(
                 this,

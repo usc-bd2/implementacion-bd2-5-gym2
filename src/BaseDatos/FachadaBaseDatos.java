@@ -143,4 +143,12 @@ public class FachadaBaseDatos {
     public int insertarValoracion(Valoracion valoracion) {
         return daoValoracion.insertarValoracion(valoracion);
     }
+
+    public List<Valoracion> consultarValoracionesPropias(Integer idUsuario) {
+        return daoValoracion.consultarValoracionesPropias(idUsuario);
+    }
+
+    public Integer modificarValoracion(Valoracion valoracion) {
+        return daoValoracion.modificarValoracion(valoracion);
+    }
 }
