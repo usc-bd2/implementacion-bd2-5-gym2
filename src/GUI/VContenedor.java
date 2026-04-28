@@ -67,7 +67,6 @@ public class VContenedor extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cambiar_nombre_ventana");
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/GUI/recursos/logo_1.webp")).getImage());
-        setResizable(false);
         getContentPane().setLayout(new java.awt.BorderLayout());
 
         toolBar.setBackground(java.awt.SystemColor.window);
