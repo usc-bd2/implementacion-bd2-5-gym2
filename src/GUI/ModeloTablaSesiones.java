@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModeloTablaSesiones extends AbstractTableModel {
     private List<Sesion> filas;
     private final String[] columnas = {
-        "Clase", "Sala", "Fecha", "Hora"
+        "Clase", "Sala", "Fecha", "Hora", "PT", "PO", "PD", "% Ocupación"
     };
 
     public ModeloTablaSesiones() {
@@ -55,8 +55,30 @@ public class ModeloTablaSesiones extends AbstractTableModel {
                 return sesion.getFechaSesion();
             case 3:
                 return sesion.getHoraInicio();
+            case 4:
+                return sesion.getPlazasTotales();
+            case 5:
+                return sesion.getPlazasOcupadas();
+            case 6:
+                return sesion.getPlazasDisponibles();
+            case 7:
+                return sesion.getPorcentajeOcupacion();
             default:
                 return null;
+        }
+    }
+
+    @Override
+    public Class<?> getColumnClass(int columna) {
+        switch (columna) {
+            case 4:
+            case 5:
+            case 6:
+                return Integer.class;
+            case 7:
+                return Double.class;
+            default:
+                return Object.class;
         }
     }
 
