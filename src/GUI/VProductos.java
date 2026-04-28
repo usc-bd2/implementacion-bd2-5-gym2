@@ -12,11 +12,12 @@ import javax.swing.table.DefaultTableModel;
 public class VProductos extends javax.swing.JPanel {
     
     private FachadaAplicacion fa;
-
+    
     public VProductos(FachadaAplicacion fa) {
         this.fa = fa;
         initComponents();
-    }        
+        cargarProductos();
+    }
     
     private void cargarProductos() {
         try {

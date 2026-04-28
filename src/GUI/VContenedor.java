@@ -19,7 +19,6 @@ import java.util.Stack;
 public class VContenedor extends javax.swing.JFrame {
     
     protected FachadaAplicacion fa;
-    private JPanel panelContenido;
 
     private Stack<Vista> pilaAtras = new Stack<>();     // Historial de navegación hacia atras
     private Vista vistaActual;
@@ -37,15 +36,15 @@ public class VContenedor extends javax.swing.JFrame {
     public VContenedor(FachadaAplicacion fa) {
         this.fa = fa;
         initComponents();
-        panelContenido = new JPanel(new BorderLayout());
 
-        getContentPane().removeAll();
-        getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(toolBar, BorderLayout.SOUTH);
-        getContentPane().add(panelContenido, BorderLayout.CENTER);
-        
         btnIrAtras.setEnabled(false);
-        setLocationRelativeTo(null);
+        
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                fa.cerrarAplicacion();
+            }
+        });
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -54,6 +53,7 @@ public class VContenedor extends javax.swing.JFrame {
         toolBar = new javax.swing.JToolBar();
         fillerToolBox2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         btnIrAtras = new javax.swing.JButton();
+        panelContenido = new javax.swing.JPanel();
         menuVentana = new javax.swing.JMenuBar();
         menuItem = new javax.swing.JMenu();
         menuItemInicio = new javax.swing.JMenuItem();
@@ -62,12 +62,12 @@ public class VContenedor extends javax.swing.JFrame {
         menuItemSesiones = new javax.swing.JMenuItem();
         menuItemProductos = new javax.swing.JMenuItem();
         menuItemValoraciones = new javax.swing.JMenuItem();
-        menuItemTest = new javax.swing.JMenuItem();
+        menuItemMisOpiniones = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cambiar_nombre_ventana");
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/GUI/recursos/logo_1.webp")).getImage());
-        setResizable(false);
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         toolBar.setBackground(java.awt.SystemColor.window);
         toolBar.setBorder(null);
@@ -81,6 +81,12 @@ public class VContenedor extends javax.swing.JFrame {
         btnIrAtras.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnIrAtras.addActionListener(this::btnIrAtrasActionPerformed);
         toolBar.add(btnIrAtras);
+
+        getContentPane().add(toolBar, java.awt.BorderLayout.SOUTH);
+
+        panelContenido.setPreferredSize(new java.awt.Dimension(600, 500));
+        panelContenido.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(panelContenido, java.awt.BorderLayout.CENTER);
 
         menuVentana.setToolTipText("");
 
@@ -117,35 +123,18 @@ public class VContenedor extends javax.swing.JFrame {
         menuItemValoraciones.addActionListener(this::menuItemValoracionesActionPerformed);
         menuItem.add(menuItemValoraciones);
 
-        menuItemTest.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        menuItemTest.setText("Test");
-        menuItemTest.addActionListener(this::menuItemTestActionPerformed);
-        menuItem.add(menuItemTest);
+        menuItemMisOpiniones.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        menuItemMisOpiniones.setText("Mis opiniones");
+        menuItemMisOpiniones.addActionListener(this::menuItemMisOpinionesActionPerformed);
+        menuItem.add(menuItemMisOpiniones);
 
         menuVentana.add(menuItem);
 
         setJMenuBar(menuVentana);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 454, Short.MAX_VALUE)
-                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void menuItemValoracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemValoracionesActionPerformed
-        navegarA(new VOpiniones(fa), "Valoraciones");
-    }//GEN-LAST:event_menuItemValoracionesActionPerformed
 
     public void navegarA(JPanel panel, String titulo) {     // Navega a una nueva vista y guarda la actual en el historial.
 
@@ -159,11 +148,12 @@ public class VContenedor extends javax.swing.JFrame {
 
     private void actualizarPantalla(JPanel panel, String titulo) {
         this.setTitle(titulo);
+
         panelContenido.removeAll();
         panelContenido.add(panel, BorderLayout.CENTER);
+        
         panelContenido.revalidate();
         panelContenido.repaint();
-        this.pack();
     }
 
     // -- HANDLERS --
@@ -188,8 +178,12 @@ public class VContenedor extends javax.swing.JFrame {
         navegarA(new VProductos(fa), "Productos");
     }
 
-    private void menuItemTestActionPerformed(java.awt.event.ActionEvent evt) {
-        navegarA(new VTestUsuario(fa), "Test");
+    private void menuItemValoracionesActionPerformed(java.awt.event.ActionEvent evt) {
+        navegarA(new VOpinionesClase(fa), "Valoraciones clases");
+    }
+
+    private void menuItemMisOpinionesActionPerformed(java.awt.event.ActionEvent evt) {
+        navegarA(new VOpiniones(fa), "Mis valoraciones");
     }
 
     private void btnIrAtrasActionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,12 +204,13 @@ public class VContenedor extends javax.swing.JFrame {
     private javax.swing.JMenu menuItem;
     private javax.swing.JMenuItem menuItemClases;
     private javax.swing.JMenuItem menuItemInicio;
+    private javax.swing.JMenuItem menuItemMisOpiniones;
     private javax.swing.JMenuItem menuItemPerfil;
     private javax.swing.JMenuItem menuItemProductos;
     private javax.swing.JMenuItem menuItemSesiones;
-    private javax.swing.JMenuItem menuItemTest;
     private javax.swing.JMenuItem menuItemValoraciones;
     private javax.swing.JMenuBar menuVentana;
+    private javax.swing.JPanel panelContenido;
     private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,17 +6,21 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.sql.Time;
 
+
 public class FachadaBaseDatos {
     private Connection conexionBD;
     private DAOUsuario daoUsuario;
+    private DAOSesiones daoSesiones;
+    private DAOClase daoClase;
     private DAOProducto daoProducto;
     private DAOPedido daoPedido;
-    private DAOClase daoClase;
+    private DAOValoracion daoValoracion;
 
     public FachadaBaseDatos(FachadaAplicacion fa) {
         try {
@@ -42,9 +46,11 @@ public class FachadaBaseDatos {
 
             // Inicializar los DAOs
             this.daoUsuario = new DAOUsuario(conexionBD);
+            this.daoSesiones = new DAOSesiones(conexionBD);
+            this.daoClase = new DAOClase(conexionBD);
             this.daoProducto = new DAOProducto(conexionBD);
             this.daoPedido = new DAOPedido(conexionBD);
-            this.daoClase = new DAOClase(conexionBD);
+            this.daoValoracion = new DAOValoracion(conexionBD);
 
         } catch (IOException | SQLException e) {
             throw new IllegalStateException("No se pudo inicializar la base de datos: " + e.getMessage(), e);
@@ -68,7 +74,11 @@ public class FachadaBaseDatos {
     public Usuario buscarUsuarioPorId(Integer idUsuario) {
         return daoUsuario.buscarPorId(idUsuario);
     }
-    
+
+    public List<Clase> consultarClases(String nombre, Integer duracion, String clasificacion) {
+       return daoClase.consultarClases(nombre, duracion, clasificacion);
+    }
+
     public boolean existeIdUsuario(Integer idUsuario) {
         return daoUsuario.existeIdUsuario(idUsuario);
     }
@@ -123,5 +133,14 @@ public class FachadaBaseDatos {
     
     public Usuario autenticarUsuario(String email, String contrasena) {
         return daoUsuario.autenticarUsuario(email, contrasena);
+    }
+
+    public List<Sesion> consultarSesiones(String nombreClase, java.time.LocalDate fechaSesion,
+                                        String nombreSala, java.time.LocalTime horaInicio) {
+        return daoSesiones.consultarSesiones(nombreClase, fechaSesion, nombreSala, horaInicio);
+    }
+
+    public int insertarValoracion(Valoracion valoracion) {
+        return daoValoracion.insertarValoracion(valoracion);
     }
 }

@@ -196,12 +196,14 @@ public class VPerfil extends javax.swing.JPanel {
                 return;
             }
 
-            txtNombre.setText(u.getNombre());
-            txtAp1.setText(u.getAp1());
-            txtAp2.setText(u.getAp2());
-            txtFechaNacimiento.setText(u.getEmail());
-            txtEmail.setText(u.getContrasena());
-            cmbTipoUsuario.setSelectedItem(u.getTipoUsuario());
+            u.setIdUsuario(Integer.parseInt(txtIdUsuario.getText().trim()));
+            u.setNombre(txtNombre.getText().trim());
+            u.setAp1(txtAp1.getText().trim());
+            u.setAp2(txtAp2.getText().trim());
+            u.setEmail(txtEmail.getText().trim());
+            u.setContrasena(txtContrasena.getText().trim());
+            u.setTipoUsuario(cmbTipoUsuario.getSelectedItem().toString());
+            u.setFechaNacimiento(LocalDate.parse(txtFechaNacimiento.getText().trim()));
 
             if (u.getFechaNacimiento() != null) {
                 txtFechaNacimiento.setText(u.getFechaNacimiento().toString());

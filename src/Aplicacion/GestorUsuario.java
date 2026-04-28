@@ -4,7 +4,7 @@ import BaseDatos.FachadaBaseDatos;
 
 
 public class GestorUsuario {
-    private final FachadaBaseDatos fachadaBD;
+    private FachadaBaseDatos fachadaBD;
 
     public GestorUsuario(FachadaBaseDatos fachadaBD) {
         this.fachadaBD = fachadaBD;
@@ -20,7 +20,7 @@ public class GestorUsuario {
     public Usuario buscarUsuarioPorId(Integer idUsuario) {
         return fachadaBD.buscarUsuarioPorId(idUsuario);
     }
-    
+
     public String registrarUsuario(Usuario u) { //t2
         //NO COMPROBAMOS ID, LO GENERA LA BD
         if (fachadaBD.existeEmail(u.getEmail())) {
