@@ -35,7 +35,16 @@ public class GestorValoracion {
         if (valoracion.consultarIdValoracion() == null) {
             throw new RuntimeException("Debe seleccionarse una valoración.");
         }
-
         return fachadaBD.modificarValoracion(valoracion);
+    }
+
+    public Integer eliminarValoracion(Integer idValoracion, Integer idUsuario) {
+        if (idValoracion == null) {
+            throw new RuntimeException("Debe seleccionarse una valoración.");
+        }
+        if (idUsuario == null) {
+            throw new RuntimeException("No hay un usuario autenticado.");
+        }
+        return fachadaBD.eliminarValoracion(idValoracion, idUsuario);
     }
 }

@@ -151,4 +151,8 @@ public class FachadaBaseDatos {
     public Integer modificarValoracion(Valoracion valoracion) {
         return daoValoracion.modificarValoracion(valoracion);
     }
+
+    public Integer eliminarValoracion(Integer idValoracion, Integer idUsuario) {
+        return daoValoracion.eliminarValoracion(idValoracion, idUsuario);
+    }
 }

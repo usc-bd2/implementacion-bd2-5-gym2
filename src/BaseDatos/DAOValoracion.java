@@ -104,4 +104,27 @@ public class DAOValoracion extends AbstractDAO {
             throw new RuntimeException("Error al modificar la valoración: " + e.getMessage(), e);
         }
     }
+
+    public Integer eliminarValoracion(Integer idValoracion, Integer idUsuario) {
+        Connection conn = this.getConexion();
+
+        StringBuilder consulta = new StringBuilder(
+        """
+            DELETE FROM valorar
+            WHERE id_valoracion = ?
+            AND id_usuario = ?
+        """);
+
+        try (PreparedStatement stm = conn.prepareStatement(consulta.toString())) {
+            stm.setInt(1, idValoracion);
+            stm.setInt(2, idUsuario);
+
+            int filasEliminadas = stm.executeUpdate();
+
+            return filasEliminadas;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al eliminar la valoración: " + e.getMessage(), e);
+        }
+    }
 }

@@ -134,4 +134,8 @@ public class FachadaAplicacion {
         valoracion.modificarIdUsuario(getIdUsuarioAutenticado());
         return gestValoracion.modificarValoracion(valoracion);
     }
+
+    public Integer eliminarValoracion(Integer idValoracion) {
+        return gestValoracion.eliminarValoracion(idValoracion,getIdUsuarioAutenticado());
+    }
 }
