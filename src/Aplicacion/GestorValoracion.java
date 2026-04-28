@@ -30,4 +30,12 @@ public class GestorValoracion {
     public List<Valoracion> consultarValoracionesPropias(Integer idUsuario) {
         return fachadaBD.consultarValoracionesPropias(idUsuario);
     }
+
+    public Integer modificarValoracion(Valoracion valoracion) {
+        if (valoracion.consultarIdValoracion() == null) {
+            throw new RuntimeException("Debe seleccionarse una valoración.");
+        }
+
+        return fachadaBD.modificarValoracion(valoracion);
+    }
 }
