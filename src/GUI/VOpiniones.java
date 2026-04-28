@@ -73,6 +73,7 @@ public class VOpiniones extends javax.swing.JPanel {
         btnGuardar.addActionListener(this::btnGuardarActionPerformed);
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(this::btnEliminarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -117,6 +118,10 @@ public class VOpiniones extends javax.swing.JPanel {
                 .addContainerGap(65, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
+        eliminarValoracionSeleccionada();
+    }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         modificarValoracionSeleccionada();
@@ -196,6 +201,59 @@ public class VOpiniones extends javax.swing.JPanel {
 
         btnGuardar.setEnabled(true);
         btnEliminar.setEnabled(true);
+    }
+
+    private void eliminarValoracionSeleccionada() {
+        try {
+            int filaVista = tablaValorar.getSelectedRow();
+            if (filaVista == -1) {
+                fa.muestraExcepcion("Debe seleccionar una valoración.");
+                return;
+            }
+
+            int filaModelo = tablaValorar.convertRowIndexToModel(filaVista);
+            Valoracion valoracion = modeloTablaValoraciones.getValoracionAt(filaModelo);
+
+            if (valoracion == null) {
+                fa.muestraExcepcion("No se pudo obtener la valoración seleccionada.");
+                return;
+            }
+
+            int confirmacion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Seguro que deseas eliminar esta valoración?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+            );
+
+            if (confirmacion != JOptionPane.YES_OPTION) {
+                return;
+            }
+
+            Integer filasEliminadas = fa.eliminarValoracion(valoracion.consultarIdValoracion());
+
+            if (filasEliminadas == null || filasEliminadas <= 0) {
+                fa.muestraExcepcion("No se pudo eliminar la valoración seleccionada.");
+                return;
+            }
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Valoración eliminada correctamente.",
+                "Operación realizada",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+
+            mostrarValoracionesPropias();
+            taxEditarOpinion.setText("");
+            cbPuntuacion.setSelectedIndex(0);
+            btnGuardar.setEnabled(false);
+            btnEliminar.setEnabled(false);
+
+        } catch (RuntimeException e) {
+            fa.muestraExcepcion(e.getMessage());
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
