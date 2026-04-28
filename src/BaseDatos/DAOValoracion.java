@@ -2,6 +2,8 @@ package BaseDatos;
 
 import Aplicacion.Valoracion;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DAOValoracion extends AbstractDAO {
