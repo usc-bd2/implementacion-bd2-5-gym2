@@ -13,6 +13,7 @@ public class FachadaAplicacion {
     private FachadaGUI fachadaGUI;
     private FachadaBaseDatos fachadaBD;
     private GestorUsuario gestUsuario;
+    private GestorSesiones gestSesiones;
     private GestorClase gestClase;
     private GestorProducto gestProducto;
     private GestorPedido gestPedido;
@@ -22,6 +23,7 @@ public class FachadaAplicacion {
         this.fachadaBD = new FachadaBaseDatos(this);
         this.fachadaGUI = new FachadaGUI(this);
         this.gestUsuario = new GestorUsuario(fachadaBD);
+        this.gestSesiones = new GestorSesiones(fachadaBD);
         this.gestClase = new GestorClase(fachadaBD);
         this.gestProducto = new GestorProducto(fachadaBD);
         this.gestPedido = new GestorPedido(fachadaBD);
@@ -105,5 +107,10 @@ public class FachadaAplicacion {
     
     public Usuario autenticarUsuario(String email, String contrasena) {
         return gestUsuario.autenticarUsuario(email, contrasena);
+    }
+
+    public List<Sesion> consultarSesiones(String nombreClase, java.time.LocalDate fechaSesion,
+                                        String nombreSala, java.time.LocalTime horaInicio) {
+        return gestSesiones.consultarSesiones(nombreClase, fechaSesion, nombreSala, horaInicio);
     }
 }

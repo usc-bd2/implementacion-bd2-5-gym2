@@ -16,6 +16,7 @@ import java.sql.Time;
 public class FachadaBaseDatos {
     private Connection conexionBD;
     private DAOUsuario daoUsuario;
+    private DAOSesiones daoSesiones;
     private DAOClase daoClase;
     private DAOProducto daoProducto;
     private DAOPedido daoPedido;
@@ -44,6 +45,7 @@ public class FachadaBaseDatos {
 
             // Inicializar los DAOs
             this.daoUsuario = new DAOUsuario(conexionBD);
+            this.daoSesiones = new DAOSesiones(conexionBD);
             this.daoClase = new DAOClase(conexionBD);
             this.daoProducto = new DAOProducto(conexionBD);
             this.daoPedido = new DAOPedido(conexionBD);
@@ -129,5 +131,10 @@ public class FachadaBaseDatos {
     
     public Usuario autenticarUsuario(String email, String contrasena) {
         return daoUsuario.autenticarUsuario(email, contrasena);
+    }
+
+    public List<Sesion> consultarSesiones(String nombreClase, java.time.LocalDate fechaSesion,
+                                        String nombreSala, java.time.LocalTime horaInicio) {
+        return daoSesiones.consultarSesiones(nombreClase, fechaSesion, nombreSala, horaInicio);
     }
 }
