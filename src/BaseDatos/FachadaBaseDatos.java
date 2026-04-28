@@ -20,6 +20,7 @@ public class FachadaBaseDatos {
     private DAOClase daoClase;
     private DAOProducto daoProducto;
     private DAOPedido daoPedido;
+    private DAOValoracion daoValoracion;
 
     public FachadaBaseDatos(FachadaAplicacion fa) {
         try {
@@ -49,6 +50,7 @@ public class FachadaBaseDatos {
             this.daoClase = new DAOClase(conexionBD);
             this.daoProducto = new DAOProducto(conexionBD);
             this.daoPedido = new DAOPedido(conexionBD);
+            this.daoValoracion = new DAOValoracion(conexionBD);
 
         } catch (IOException | SQLException e) {
             throw new IllegalStateException("No se pudo inicializar la base de datos: " + e.getMessage(), e);
@@ -136,5 +138,9 @@ public class FachadaBaseDatos {
     public List<Sesion> consultarSesiones(String nombreClase, java.time.LocalDate fechaSesion,
                                         String nombreSala, java.time.LocalTime horaInicio) {
         return daoSesiones.consultarSesiones(nombreClase, fechaSesion, nombreSala, horaInicio);
+    }
+
+    public int insertarValoracion(Valoracion valoracion) {
+        return daoValoracion.insertarValoracion(valoracion);
     }
 }

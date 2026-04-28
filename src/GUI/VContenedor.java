@@ -62,7 +62,7 @@ public class VContenedor extends javax.swing.JFrame {
         menuItemSesiones = new javax.swing.JMenuItem();
         menuItemProductos = new javax.swing.JMenuItem();
         menuItemValoraciones = new javax.swing.JMenuItem();
-        menuItemTest = new javax.swing.JMenuItem();
+        menuItemMisOpiniones = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cambiar_nombre_ventana");
@@ -123,10 +123,10 @@ public class VContenedor extends javax.swing.JFrame {
         menuItemValoraciones.addActionListener(this::menuItemValoracionesActionPerformed);
         menuItem.add(menuItemValoraciones);
 
-        menuItemTest.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        menuItemTest.setText("Test");
-        menuItemTest.addActionListener(this::menuItemTestActionPerformed);
-        menuItem.add(menuItemTest);
+        menuItemMisOpiniones.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        menuItemMisOpiniones.setText("Mis opiniones");
+        menuItemMisOpiniones.addActionListener(this::menuItemMisOpinionesActionPerformed);
+        menuItem.add(menuItemMisOpiniones);
 
         menuVentana.add(menuItem);
 
@@ -179,11 +179,11 @@ public class VContenedor extends javax.swing.JFrame {
     }
 
     private void menuItemValoracionesActionPerformed(java.awt.event.ActionEvent evt) {
-        navegarA(new VOpiniones(fa), "Valoraciones");
+        navegarA(new VOpinionesClase(fa), "Valoraciones clases");
     }
 
-    private void menuItemTestActionPerformed(java.awt.event.ActionEvent evt) {
-        navegarA(new VTestUsuario(fa), "Test");
+    private void menuItemMisOpinionesActionPerformed(java.awt.event.ActionEvent evt) {
+        navegarA(new VOpiniones(fa), "Mis valoraciones");
     }
 
     private void btnIrAtrasActionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,10 +204,10 @@ public class VContenedor extends javax.swing.JFrame {
     private javax.swing.JMenu menuItem;
     private javax.swing.JMenuItem menuItemClases;
     private javax.swing.JMenuItem menuItemInicio;
+    private javax.swing.JMenuItem menuItemMisOpiniones;
     private javax.swing.JMenuItem menuItemPerfil;
     private javax.swing.JMenuItem menuItemProductos;
     private javax.swing.JMenuItem menuItemSesiones;
-    private javax.swing.JMenuItem menuItemTest;
     private javax.swing.JMenuItem menuItemValoraciones;
     private javax.swing.JMenuBar menuVentana;
     private javax.swing.JPanel panelContenido;
