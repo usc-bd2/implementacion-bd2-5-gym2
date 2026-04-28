@@ -58,7 +58,7 @@ public class VCatalogoSesiones extends javax.swing.JPanel {
 
         cbFiltroSala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Sala A", "Sala B", "Sala C", "Sala D", "Sala E" }));
 
-        cbFiltroHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", " ", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" }));
+        cbFiltroHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" }));
 
         tablaSesiones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
