@@ -92,7 +92,8 @@ INSERT INTO usuario (id_usuario, nombre, ap1, ap2, email, contrasena, tipo_usuar
 (2, 'Lucia',  'Perez',  'Moran', 'lucia@gymfit.es',  '$2a$10$abcdefghijklmnopqrstuvABCDEFGHIJKLMNOpqrstuvwxyz12', 'NORMAL', '1999-06-21'),
 (3, 'Alvaro', 'Gomez',  'Rey',   'alvaro@gymfit.es', '$2a$10$1234567890abcdefghijklmnopqrstuvABCDEFGHIJKLMNO1234', 'NORMAL', '1997-11-03'),
 (4, 'Irene',  'Castro', 'Vidal', 'irene@gymfit.es',  '$2a$10$ZYXWVUTSRQponmlkjihGFEDCBAzyxwvutsrqponmLKJIHGF34', 'NORMAL', '2001-01-30'),
-(5, 'Diego',  'Suarez', 'Rios',  'diego@gymfit.es',  '$2a$10$mnbvcxzlkjhgfdsapoiuytrewqMNBVCXZLKJHGFDSAPOIUYT56', 'NORMAL', '1995-09-17');
+(5, 'Diego',  'Suarez', 'Rios',  'diego@gymfit.es',  '$2a$10$mnbvcxzlkjhgfdsapoiuytrewqMNBVCXZLKJHGFDSAPOIUYT56', 'NORMAL', '1995-09-17'),
+(6, 'Maria',  'Rañó',   'Myro',  'maria@gymfit.es',  '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4','NORMAL','2005-06-15');
 
 -- 9. SESIONES
 INSERT INTO sesion (id_sesion, id_sala, nombre_clase, dni_monitor, fecha_sesion, hora_inicio) VALUES

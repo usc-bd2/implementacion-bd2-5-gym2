@@ -15,11 +15,13 @@ import javax.swing.JOptionPane;
 
 public class VAutenticacion extends javax.swing.JFrame {
     private FachadaAplicacion fa;
+    private VContenedor vContenedor;
     /**
      * Creates new form VAutenticacion
      */
-    public VAutenticacion(FachadaAplicacion fa) {
+    public VAutenticacion(FachadaAplicacion fa, VContenedor vContenedor) {
         this.fa = fa;
+        this.vContenedor = vContenedor;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -103,9 +105,13 @@ public class VAutenticacion extends javax.swing.JFrame {
         Usuario u = fa.autenticarUsuario(email, pass);
 
         if (u != null) {
-            VContenedor vc = new VContenedor(fa);
-            vc.navegarA(new VPrincipal(fa), "Catálogo de Clases");
-            vc.setVisible(true);
+            VPrincipal vPrincipal = new VPrincipal(fa);
+
+            vContenedor.navegarA(vPrincipal, "Catálogo de Clases");
+            vContenedor.pack();
+            vContenedor.setLocationRelativeTo(null);
+            vContenedor.setVisible(true);
+
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this,
