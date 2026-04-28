@@ -10,6 +10,10 @@ public class Sesion {
     private String nombreClase;
     private LocalDate fechaSesion;
     private LocalTime horaInicio;
+    private Integer plazasTotales;
+    private Integer plazasOcupadas;
+    private Integer plazasDisponibles;
+    private Double porcentajeOcupacion;
 
     public Sesion() {
     }
@@ -60,5 +64,37 @@ public class Sesion {
     }
     public void setHoraInicio(LocalTime horaInicio) {
         this.horaInicio = horaInicio;
+    }
+
+    // Plazas Totales
+    public Integer getPlazasTotales() {
+        return plazasTotales;
+    }
+    public void setPlazasTotales(Integer plazasTotales) {
+        this.plazasTotales = plazasTotales;
+    }
+
+    // Plazas Ocupadas
+    public Integer getPlazasOcupadas() {
+        return plazasOcupadas;
+    }
+    public void setPlazasOcupadas(Integer plazasOcupadas) {
+        this.plazasOcupadas = plazasOcupadas;
+    }
+
+    // Plazas Disponibles
+    public Integer getPlazasDisponibles() {
+        return plazasDisponibles;
+    }
+    public void setPlazasDisponibles(Integer plazasDisponibles) {
+        this.plazasDisponibles = plazasDisponibles;
+    }
+
+    // Porcentaje Ocupación
+    public Double getPorcentajeOcupacion() {
+        return porcentajeOcupacion;
+    }
+    public void setPorcentajeOcupacion(Double porcentajeOcupacion) {
+        this.porcentajeOcupacion = porcentajeOcupacion;
     }
 }

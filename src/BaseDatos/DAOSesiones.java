@@ -26,10 +26,30 @@ public class DAOSesiones extends AbstractDAO {
                 sa.nombre AS nombre_sala,
                 s.nombre_clase,
                 s.fecha_sesion,
-                s.hora_inicio
+                s.hora_inicio,
+                COUNT(DISTINCT p.id_plaza) AS plazas_totales,
+                COUNT(DISTINCT rp.id_plaza) AS plazas_ocupadas,
+                COUNT(DISTINCT p.id_plaza) - COUNT(DISTINCT rp.id_plaza) AS plazas_disponibles,
+                COALESCE(
+                    ROUND(
+                        (COUNT(DISTINCT rp.id_plaza)::numeric * 100)
+                        / NULLIF(COUNT(DISTINCT p.id_plaza), 0),
+                        2
+                    ),
+                    0.00
+                ) AS porcentaje_ocupacion
             FROM sesion s
             JOIN sala sa
                 ON s.id_sala = sa.id_sala
+            LEFT JOIN plaza p
+                ON p.id_sala = s.id_sala
+            LEFT JOIN reserva_plaza rp
+                ON rp.id_sesion = s.id_sesion
+                AND rp.id_sala = p.id_sala
+                AND rp.id_plaza = p.id_plaza
+            LEFT JOIN reserva r
+                ON r.id_reserva = rp.id_reserva
+                AND r.id_sesion = s.id_sesion
             WHERE 1 = 1
         """);
 
@@ -55,7 +75,17 @@ public class DAOSesiones extends AbstractDAO {
             parametros.add(Time.valueOf(horaInicio));
         }
 
-        consulta.append(" ORDER BY s.fecha_sesion, s.hora_inicio, s.nombre_clase ");
+        consulta.append(
+        """
+            GROUP BY
+                s.id_sesion,
+                s.id_sala,
+                sa.nombre,
+                s.nombre_clase,
+                s.fecha_sesion,
+                s.hora_inicio
+            ORDER BY s.fecha_sesion, s.hora_inicio, s.nombre_clase
+        """);
 
         try (PreparedStatement stm = conn.prepareStatement(consulta.toString())) {
 
@@ -94,6 +124,11 @@ public class DAOSesiones extends AbstractDAO {
         if (hora != null) {
             sesion.setHoraInicio(hora.toLocalTime());
         }
+
+        sesion.setPlazasTotales(rs.getInt("plazas_totales"));
+        sesion.setPlazasOcupadas(rs.getInt("plazas_ocupadas"));
+        sesion.setPlazasDisponibles(rs.getInt("plazas_disponibles"));
+        sesion.setPorcentajeOcupacion(rs.getDouble("porcentaje_ocupacion"));
 
         return sesion;
     }
