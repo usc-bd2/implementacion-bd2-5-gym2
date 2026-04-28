@@ -1,5 +1,7 @@
 package Aplicacion;
 
+import java.util.List;
+
 import BaseDatos.FachadaBaseDatos;
 
 
@@ -23,5 +25,9 @@ public class GestorValoracion {
         if (valoracion.consultarIdUsuario() == null) {
             throw new RuntimeException("No hay un usuario autenticado.");
         }
+    }
+    
+    public List<Valoracion> consultarValoracionesPropias(Integer idUsuario) {
+        return fachadaBD.consultarValoracionesPropias(idUsuario);
     }
 }
