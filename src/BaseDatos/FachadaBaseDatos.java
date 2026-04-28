@@ -147,4 +147,8 @@ public class FachadaBaseDatos {
     public List<Valoracion> consultarValoracionesPropias(Integer idUsuario) {
         return daoValoracion.consultarValoracionesPropias(idUsuario);
     }
+
+    public Integer modificarValoracion(Valoracion valoracion) {
+        return daoValoracion.modificarValoracion(valoracion);
+    }
 }

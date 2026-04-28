@@ -78,7 +78,30 @@ public class DAOValoracion extends AbstractDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Error al consultar las valoraciones del usuario: " + e.getMessage(), e);
         }
-
     return valoraciones;
-}
+    }
+
+    public Integer modificarValoracion(Valoracion valoracion) {
+        Connection conn = this.getConexion();
+        StringBuilder consulta = new StringBuilder(
+        """
+            UPDATE valorar
+            SET opinion = ?,
+                puntuacion = ?
+            WHERE id_valoracion = ?
+            AND id_usuario = ?
+        """);
+
+        try (PreparedStatement stm = conn.prepareStatement(consulta.toString())) {
+            stm.setString(1, valoracion.consultarOpinion());
+            stm.setInt(2, valoracion.consultarPuntuacion());
+            stm.setInt(3, valoracion.consultarIdValoracion());
+            stm.setInt(4, valoracion.consultarIdUsuario());
+
+            int filasActualizadas = stm.executeUpdate();
+            return filasActualizadas;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al modificar la valoración: " + e.getMessage(), e);
+        }
+    }
 }

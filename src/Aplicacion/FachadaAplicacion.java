@@ -129,4 +129,9 @@ public class FachadaAplicacion {
     public List<Valoracion> consultarValoracionesPropias() {
         return gestValoracion.consultarValoracionesPropias(getIdUsuarioAutenticado());
     }
+
+    public Integer modificarValoracion(Valoracion valoracion) {
+        valoracion.modificarIdUsuario(getIdUsuarioAutenticado());
+        return gestValoracion.modificarValoracion(valoracion);
+    }
 }
