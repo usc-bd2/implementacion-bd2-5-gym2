@@ -21,6 +21,7 @@ public class FachadaBaseDatos {
     private DAOProducto daoProducto;
     private DAOPedido daoPedido;
     private DAOValoracion daoValoracion;
+    private DAOReserva daoReserva;
 
     public FachadaBaseDatos(FachadaAplicacion fa) {
         try {
@@ -51,6 +52,7 @@ public class FachadaBaseDatos {
             this.daoProducto = new DAOProducto(conexionBD);
             this.daoPedido = new DAOPedido(conexionBD);
             this.daoValoracion = new DAOValoracion(conexionBD);
+            this.daoReserva = new DAOReserva(conexionBD);
 
         } catch (IOException | SQLException e) {
             throw new IllegalStateException("No se pudo inicializar la base de datos: " + e.getMessage(), e);
@@ -154,5 +156,9 @@ public class FachadaBaseDatos {
 
     public Integer eliminarValoracion(Integer idValoracion, Integer idUsuario) {
         return daoValoracion.eliminarValoracion(idValoracion, idUsuario);
+    }
+
+    public Integer registrarReserva(Reserva reserva) {
+        return daoReserva.registrarReserva(reserva);
     }
 }

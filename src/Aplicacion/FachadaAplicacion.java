@@ -19,6 +19,7 @@ public class FachadaAplicacion {
     private GestorPedido gestPedido;
     private GestorValoracion gestValoracion;
     private Usuario usuarioAutenticado;
+    private GestorReserva gestReserva;
 
     public FachadaAplicacion() {
         this.fachadaBD = new FachadaBaseDatos(this);
@@ -29,6 +30,7 @@ public class FachadaAplicacion {
         this.gestProducto = new GestorProducto(fachadaBD);
         this.gestPedido = new GestorPedido(fachadaBD);
         this.gestValoracion = new GestorValoracion(fachadaBD);
+        this.gestReserva = new GestorReserva(fachadaBD);
     }
 
     public static void main(String[] args) {
@@ -137,5 +139,9 @@ public class FachadaAplicacion {
 
     public Integer eliminarValoracion(Integer idValoracion) {
         return gestValoracion.eliminarValoracion(idValoracion,getIdUsuarioAutenticado());
+    }
+
+    public Integer registrarReserva(Reserva reserva) {
+        return gestReserva.registrarReserva(reserva);
     }
 }
