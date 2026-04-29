@@ -18,11 +18,11 @@ public class GestorValoracion {
     }
 
     private void validarValoracion(Valoracion valoracion) {
-        if (valoracion.consultarNombreClase() == null || valoracion.consultarNombreClase().isBlank()) {
+        if (valoracion.getNombreClase() == null || valoracion.getNombreClase().isBlank()) {
             throw new RuntimeException("Debe seleccionarse una clase.");
         }
 
-        if (valoracion.consultarIdUsuario() == null) {
+        if (valoracion.getIdUsuario() == null) {
             throw new RuntimeException("No hay un usuario autenticado.");
         }
     }
@@ -32,7 +32,7 @@ public class GestorValoracion {
     }
 
     public Integer modificarValoracion(Valoracion valoracion) {
-        if (valoracion.consultarIdValoracion() == null) {
+        if (valoracion.getIdValoracion() == null) {
             throw new RuntimeException("Debe seleccionarse una valoración.");
         }
         return fachadaBD.modificarValoracion(valoracion);

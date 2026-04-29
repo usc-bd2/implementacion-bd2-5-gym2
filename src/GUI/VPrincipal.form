@@ -16,57 +16,63 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="scrollTablaClases" min="-2" pref="560" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnValorarClase" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="txtBuscar" min="-2" pref="200" max="-2" attributes="0"/>
-                      </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="scrollTablaSesiones" alignment="1" pref="560" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnLimpiarFiltros" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnReservar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblClasificacion" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblDuracion" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cbFiltroClasificacion" min="-2" pref="99" max="-2" attributes="0"/>
-                          <Component id="cbFiltroDuracion" min="-2" pref="99" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="lblHora" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cbFiltroHora" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="txtBuscar" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="251" max="-2" attributes="0"/>
+                      <Component id="lblSala" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="cbFiltroSala" min="-2" pref="89" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="lblFecha" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="spnFecha" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="txtBuscar" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblDuracion" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbFiltroDuracion" alignment="2" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblClasificacion" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbFiltroClasificacion" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbFiltroSala" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblSala" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="spnFecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblFecha" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cbFiltroHora" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblHora" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnValorarClase" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnLimpiarFiltros" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnReservar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+              <Component id="scrollTablaSesiones" pref="330" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Component id="scrollTablaClases" min="-2" pref="330" max="-2" attributes="0"/>
-              <EmptySpace pref="39" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -74,17 +80,19 @@
   <SubComponents>
     <Component class="javax.swing.JTextField" name="txtBuscar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar clase"/>
+        <Property name="text" type="java.lang.String" value="Buscar sesi&#xf3;n"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbFiltroDuracion">
+    <Component class="javax.swing.JComboBox" name="cbFiltroSala">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
+          <StringArray count="6">
             <StringItem index="0" value="Todas"/>
-            <StringItem index="1" value="Corta (&lt;45)"/>
-            <StringItem index="2" value="Estandar (45-55)"/>
-            <StringItem index="3" value="Extendida (&gt;60)"/>
+            <StringItem index="1" value="Sala A"/>
+            <StringItem index="2" value="Sala B"/>
+            <StringItem index="3" value="Sala C"/>
+            <StringItem index="4" value="Sala D"/>
+            <StringItem index="5" value="Sala E"/>
           </StringArray>
         </Property>
       </Properties>
@@ -92,17 +100,27 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbFiltroClasificacion">
+    <Component class="javax.swing.JComboBox" name="cbFiltroHora">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="7">
+          <StringArray count="17">
             <StringItem index="0" value="Todas"/>
-            <StringItem index="1" value="Funcional"/>
-            <StringItem index="2" value="Suelo"/>
-            <StringItem index="3" value="Mente-cuerpo"/>
-            <StringItem index="4" value="Cardio"/>
-            <StringItem index="5" value="Baile"/>
-            <StringItem index="6" value="Musculacion"/>
+            <StringItem index="1" value="6:00"/>
+            <StringItem index="2" value="7:00"/>
+            <StringItem index="3" value="8:00"/>
+            <StringItem index="4" value="9:00"/>
+            <StringItem index="5" value="10:00"/>
+            <StringItem index="6" value="11:00"/>
+            <StringItem index="7" value="12:00"/>
+            <StringItem index="8" value="13:00"/>
+            <StringItem index="9" value="14:00"/>
+            <StringItem index="10" value="15:00"/>
+            <StringItem index="11" value="16:00"/>
+            <StringItem index="12" value="17:00"/>
+            <StringItem index="13" value="18:00"/>
+            <StringItem index="14" value="19:00"/>
+            <StringItem index="15" value="20:00"/>
+            <StringItem index="16" value="21:00"/>
           </StringArray>
         </Property>
       </Properties>
@@ -110,14 +128,41 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblDuracion">
+    <Container class="javax.swing.JScrollPane" name="scrollTablaSesiones">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="tablaSesiones">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="8" rowCount="4">
+                <Column editable="true" title="Clase" type="java.lang.String"/>
+                <Column editable="true" title="Sala" type="java.lang.String"/>
+                <Column editable="true" title="Fecha" type="java.lang.Object"/>
+                <Column editable="true" title="Hora" type="java.lang.Object"/>
+                <Column editable="true" title="PT" type="java.lang.Integer"/>
+                <Column editable="true" title="PO" type="java.lang.Integer"/>
+                <Column editable="true" title="PD" type="java.lang.Integer"/>
+                <Column editable="true" title="% Ocupaci&#xf3;n" type="java.lang.Double"/>
+              </Table>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="lblFecha">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Duraci&#xf3;n:"/>
+        <Property name="text" type="java.lang.String" value="Fecha:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblClasificacion">
+    <Component class="javax.swing.JLabel" name="lblHora">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Clasificaci&#xf3;n:"/>
+        <Property name="text" type="java.lang.String" value="Hora:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblSala">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sala:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnBuscar">
@@ -128,54 +173,34 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="scrollTablaClases">
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTable" name="tablaClases">
-          <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="10">
-                <Column editable="true" title="Nombre" type="java.lang.String"/>
-                <Column editable="true" title="Duraci&#xf3;n" type="java.lang.Integer"/>
-                <Column editable="true" title="Clasificaci&#xf3;n" type="java.lang.String"/>
-                <Column editable="true" title="Valoraci&#xf3;n" type="java.lang.Double"/>
-              </Table>
-            </Property>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="1">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-              </TableColumnModel>
-            </Property>
-            <Property name="columnSelectionAllowed" type="boolean" value="true"/>
-            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-            </Property>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
-    <Component class="javax.swing.JButton" name="btnValorarClase">
+    <Component class="javax.swing.JSpinner" name="spnFecha">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Valorar"/>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="now" stepSize="5" type="date"/>
+        </Property>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Default Cursor"/>
+        </Property>
+        <Property name="editor" type="javax.swing.JComponent" editor="org.netbeans.modules.form.editors.SpinnerEditorEditor">
+          <SpinnerEditor format="dd/MM/yy" type="1"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnLimpiarFiltros">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Limpiar filtros"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarFiltrosActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnReservar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Reservar"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnValorarClaseActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReservarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

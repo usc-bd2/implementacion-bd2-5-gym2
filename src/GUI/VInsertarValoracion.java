@@ -28,6 +28,7 @@ public class VInsertarValoracion extends javax.swing.JPanel {
         lblEscribirOpinion = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         lblNombreClase = new javax.swing.JLabel();
+        lblValorarPreTitle = new javax.swing.JLabel();
 
         txaOpinion.setColumns(20);
         txaOpinion.setRows(5);
@@ -43,8 +44,10 @@ public class VInsertarValoracion extends javax.swing.JPanel {
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(this::btnGuardarActionPerformed);
 
-        lblNombreClase.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        lblNombreClase.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
         lblNombreClase.setText("{Nombre clase}");
+
+        lblValorarPreTitle.setText("Valorar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -53,9 +56,6 @@ public class VInsertarValoracion extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblEscribirOpinion)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblNombreClase)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -68,17 +68,24 @@ public class VInsertarValoracion extends javax.swing.JPanel {
                                 .addComponent(cbPuntuacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
                                 .addComponent(btnGuardar)))
-                        .addGap(45, 45, 45))))
+                        .addGap(45, 45, 45))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblValorarPreTitle)
+                            .addComponent(lblEscribirOpinion))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addGap(25, 25, 25)
+                .addComponent(lblValorarPreTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblNombreClase)
                 .addGap(48, 48, 48)
                 .addComponent(lblEscribirOpinion)
                 .addGap(18, 18, 18)
-                .addComponent(scrollTxaOpinion, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollTxaOpinion, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btnGuardar)
@@ -107,10 +114,10 @@ public class VInsertarValoracion extends javax.swing.JPanel {
             Integer puntuacion = Integer.valueOf((String) cbPuntuacion.getSelectedItem());
 
             Valoracion valoracion = new Valoracion();
-            valoracion.modificarNombreClase(nombreClase);
-            valoracion.modificarIdUsuario(fa.getIdUsuarioAutenticado());
-            valoracion.modificarOpinion(opinion);
-            valoracion.modificarPuntuacion(puntuacion);
+            valoracion.setNombreClase(nombreClase);
+            valoracion.setIdUsuario(fa.getIdUsuarioAutenticado());
+            valoracion.setOpinion(opinion);
+            valoracion.setPuntuacion(puntuacion);
 
             Integer success = fa.registrarValoracion(valoracion);
 
@@ -139,6 +146,7 @@ public class VInsertarValoracion extends javax.swing.JPanel {
     private javax.swing.JLabel lblEscribirOpinion;
     private javax.swing.JLabel lblNombreClase;
     private javax.swing.JLabel lblPuntuacion;
+    private javax.swing.JLabel lblValorarPreTitle;
     private javax.swing.JScrollPane scrollTxaOpinion;
     private javax.swing.JTextArea txaOpinion;
     // End of variables declaration//GEN-END:variables

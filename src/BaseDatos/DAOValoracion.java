@@ -23,10 +23,10 @@ public class DAOValoracion extends AbstractDAO {
         """);
 
         try (PreparedStatement stm = conn.prepareStatement(consulta.toString())) {
-            stm.setString(1, valoracion.consultarNombreClase());
-            stm.setInt(2, valoracion.consultarIdUsuario());
-            stm.setString(3, valoracion.consultarOpinion());
-            stm.setInt(4, valoracion.consultarPuntuacion());
+            stm.setString(1, valoracion.getNombreClase());
+            stm.setInt(2, valoracion.getIdUsuario());
+            stm.setString(3, valoracion.getOpinion());
+            stm.setInt(4, valoracion.getPuntuacion());
 
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next()) {
@@ -61,16 +61,16 @@ public class DAOValoracion extends AbstractDAO {
                 while (rs.next()) {
                     Valoracion valoracion = new Valoracion();
 
-                    valoracion.modificarIdValoracion(rs.getInt("id_valoracion"));
-                    valoracion.modificarNombreClase(rs.getString("nombre_clase"));
-                    valoracion.modificarIdUsuario(rs.getInt("id_usuario"));
+                    valoracion.setIdValoracion(rs.getInt("id_valoracion"));
+                    valoracion.setNombreClase(rs.getString("nombre_clase"));
+                    valoracion.setIdUsuario(rs.getInt("id_usuario"));
 
                     Date fechaSql = rs.getDate("fecha");
                     if (fechaSql != null) {
-                        valoracion.modificarFecha(fechaSql.toLocalDate());
+                        valoracion.setFecha(fechaSql.toLocalDate());
                     }
-                    valoracion.modificarOpinion(rs.getString("opinion"));
-                    valoracion.modificarPuntuacion(rs.getInt("puntuacion"));
+                    valoracion.setOpinion(rs.getString("opinion"));
+                    valoracion.setPuntuacion(rs.getInt("puntuacion"));
                     valoraciones.add(valoracion);
                 }
             }
@@ -93,10 +93,10 @@ public class DAOValoracion extends AbstractDAO {
         """);
 
         try (PreparedStatement stm = conn.prepareStatement(consulta.toString())) {
-            stm.setString(1, valoracion.consultarOpinion());
-            stm.setInt(2, valoracion.consultarPuntuacion());
-            stm.setInt(3, valoracion.consultarIdValoracion());
-            stm.setInt(4, valoracion.consultarIdUsuario());
+            stm.setString(1, valoracion.getOpinion());
+            stm.setInt(2, valoracion.getPuntuacion());
+            stm.setInt(3, valoracion.getIdValoracion());
+            stm.setInt(4, valoracion.getIdUsuario());
 
             int filasActualizadas = stm.executeUpdate();
             return filasActualizadas;

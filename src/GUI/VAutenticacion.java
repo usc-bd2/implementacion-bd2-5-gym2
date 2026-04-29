@@ -24,6 +24,8 @@ public class VAutenticacion extends javax.swing.JFrame {
         this.vContenedor = vContenedor;
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Proyecto BDII - Gimnasio");
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,7 +109,7 @@ public class VAutenticacion extends javax.swing.JFrame {
         if (u != null) {
             VPrincipal vPrincipal = new VPrincipal(fa);
 
-            vContenedor.navegarA(vPrincipal, "Catálogo de Clases");
+            vContenedor.navegarA(vPrincipal, "Catálogo de Sesiones");
             vContenedor.pack();
             vContenedor.setLocationRelativeTo(null);
             vContenedor.setVisible(true);

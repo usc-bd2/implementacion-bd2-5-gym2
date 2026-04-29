@@ -35,7 +35,6 @@ El sistema completo fue definido durante la fase de planificación, incluyendo f
 - Editar valoración.
 - Eliminar valoración.
 - Consultar valoraciones de una clase.
-- Consultar ranking de clases mejor valoradas.
 
 ## Estructura del proyecto
 
@@ -54,6 +53,7 @@ La aplicación está desarrollada en Java siguiendo una arquitectura en capas qu
 ├── sql
 │   ├── create.sql
 │   ├── insertion.sql
+│   ├── procedures.sql
 │   └── reset.sql
 └── src
     ├── Aplicacion
