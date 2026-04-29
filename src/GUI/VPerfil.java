@@ -199,13 +199,16 @@ public class VPerfil extends javax.swing.JPanel {
             txtNombre.setText(u.getNombre());
             txtAp1.setText(u.getAp1());
             txtAp2.setText(u.getAp2());
-            txtFechaNacimiento.setText(u.getEmail());
-            txtEmail.setText(u.getContrasena());
+            txtEmail.setText(u.getEmail());
+            txtContrasena.setText("");
             cmbTipoUsuario.setSelectedItem(u.getTipoUsuario());
 
             if (u.getFechaNacimiento() != null) {
                 txtFechaNacimiento.setText(u.getFechaNacimiento().toString());
+            } else {
+                txtFechaNacimiento.setText("");
             }
+            
         } catch (NumberFormatException e) {
             fa.muestraExcepcion("El ID de usuario debe ser un número.");
         } catch (Exception e) {
@@ -251,8 +254,8 @@ public class VPerfil extends javax.swing.JPanel {
             u.setNombre(txtNombre.getText().trim());
             u.setAp1(txtAp1.getText().trim());
             u.setAp2(txtAp2.getText().trim());
-            u.setEmail(txtFechaNacimiento.getText().trim());
-            u.setContrasena(txtEmail.getText().trim());
+            u.setEmail(txtEmail.getText().trim());
+            u.setContrasena(txtContrasena.getText().trim());
             u.setTipoUsuario(cmbTipoUsuario.getSelectedItem().toString());
             u.setFechaNacimiento(LocalDate.parse(txtFechaNacimiento.getText().trim()));
 
