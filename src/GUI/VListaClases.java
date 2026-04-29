@@ -49,7 +49,7 @@ public class VListaClases extends javax.swing.JPanel {
 
         cbFiltroDuracion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "45", "60", "90" }));
 
-        cbFiltroClasificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Funcional", "Suelo", "Mente-cuerpo", "Cardio", "Baile", "Musculacion" }));
+        cbFiltroClasificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Funcional", "Suelo", "Mente-Cuerpo", "Cardio", "Baile", "Musculacion" }));
 
         lblDuracion.setText("Duración:");
 

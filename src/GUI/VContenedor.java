@@ -153,7 +153,7 @@ public class VContenedor extends javax.swing.JFrame {
     // -- HANDLERS --
 
     private void menuItemInicioActionPerformed(java.awt.event.ActionEvent evt) {
-        navegarA(new VPrincipal(fa), "Proyecto BDII - Gimnasio");
+        navegarA(new VPrincipal(fa), "Catálogo de Sesiones");
     }
 
     private void menuItemPerfilActionPerformed(java.awt.event.ActionEvent evt) {
