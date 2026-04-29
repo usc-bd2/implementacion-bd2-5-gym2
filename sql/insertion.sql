@@ -98,26 +98,26 @@ INSERT INTO usuario (id_usuario, nombre, ap1, ap2, email, contrasena, tipo_usuar
 -- 9. SESIONES
 INSERT INTO sesion (id_sesion, id_sala, nombre_clase, dni_monitor, fecha_sesion, hora_inicio) VALUES
 -- Sala A (id_sala=1): Crossfit 45 min, Zumba 40 min
-(1,  1, 'Crossfit', '44444444D', '2026-05-05', '08:00:00'),   -- 08:00–08:45
-(2,  1, 'Zumba',    '11111111A', '2026-05-05', '19:00:00'),   -- 19:00–19:40
-(3,  1, 'Crossfit', '44444444D', '2026-05-06', '18:00:00'),   -- 18:00–18:45
-(4,  1, 'Zumba',    '11111111A', '2026-05-07', '19:00:00'),   -- 19:00–19:40
+(1,  1, 'Crossfit', '44444444D', '2026-05-02', '08:00:00'),   -- 08:00–08:45
+(2,  1, 'Zumba',    '11111111A', '2026-05-01', '19:00:00'),   -- 19:00–19:40
+(3,  1, 'Crossfit', '44444444D', '2026-05-13', '14:00:00'),   -- 14:00–14:45
+(4,  1, 'Zumba',    '11111111A', '2026-05-14', '19:00:00'),   -- 19:00–19:40
 
 -- Sala C (id_sala=3): Yoga 60 min, Pilates 50 min
-(5,  3, 'Yoga',     '33333333C', '2026-05-05', '09:00:00'),   -- 09:00–10:00
-(6,  3, 'Pilates',  '33333333C', '2026-05-05', '10:00:00'),   -- 10:30–11:20 ✓ no hay solape
-(7,  3, 'Yoga',     '33333333C', '2026-05-06', '18:00:00'),   -- 18:30–19:30
-(8,  3, 'Pilates',  '33333333C', '2026-05-07', '09:00:00'),   -- 09:30–10:20
+(5,  3, 'Yoga',     '33333333C', '2026-04-27', '09:00:00'),   -- 09:00–10:00
+(6,  3, 'Pilates',  '33333333C', '2026-05-02', '10:00:00'),   -- 10:30–11:20
+(7,  3, 'Yoga',     '33333333C', '2026-05-12', '18:00:00'),   -- 18:30–19:30
+(8,  3, 'Pilates',  '33333333C', '2026-05-15', '09:00:00'),   -- 09:30–10:20
 
 -- Sala D (id_sala=4): Spinning 45 min
-(9,  4, 'Spinning', '22222222B', '2026-05-05', '07:00:00'),   -- 07:00–07:45
-(10, 4, 'Spinning', '22222222B', '2026-05-05', '18:00:00'),   -- 18:30–19:15 ✓ no hay solape
-(11, 4, 'Spinning', '22222222B', '2026-05-06', '07:00:00'),   -- 07:00–07:45
+(9,  4, 'Spinning', '22222222B', '2026-04-28', '07:00:00'),   -- 07:00–07:45
+(10, 4, 'Spinning', '22222222B', '2026-05-13', '18:00:00'),   -- 18:30–19:15
+(11, 4, 'Spinning', '22222222B', '2026-05-14', '07:00:00'),   -- 07:00–07:45
 
 -- Sala B (id_sala=2): Fuerza 50 min
-(12, 2, 'Fuerza',   '44444444D', '2026-05-05', '20:00:00'),   -- 20:00–20:50
-(13, 2, 'Fuerza',   '44444444D', '2026-05-06', '20:00:00'),   -- 20:00–20:50
-(14, 2, 'Fuerza',   '44444444D', '2026-05-07', '17:00:00');   -- 17:30–18:20
+(12, 2, 'Fuerza',   '44444444D', '2026-05-01', '20:00:00'),   -- 20:00–20:50
+(13, 2, 'Fuerza',   '44444444D', '2026-05-13', '20:00:00'),   -- 20:00–20:50
+(14, 2, 'Fuerza',   '44444444D', '2026-05-14', '17:00:00');   -- 17:30–18:20
 
 -- 10. PLAZAS (15 plazas por sala)
 INSERT INTO plaza (id_plaza, id_sala) VALUES
@@ -144,30 +144,22 @@ INSERT INTO plaza (id_plaza, id_sala) VALUES
 -- 11. RESERVAS
 INSERT INTO reserva (id_reserva, id_usuario, id_sesion, fecha_reserva) VALUES
 (1, 2, 10, '2026-04-25'),   -- Lucia  → Spinning sala D sesion 10
-(2, 3,  5, '2026-04-26'),   -- Alvaro → Yoga    sala C sesion 5
+(2, 6,  5, '2026-04-24'),   -- Maria  → Yoga     sala C sesion 5
 (3, 4,  1, '2026-04-27'),   -- Irene  → Crossfit sala A sesion 1
-(4, 5, 12, '2026-04-28'),   -- Diego  → Fuerza  sala B sesion 12
-(5, 2,  6, '2026-04-29'),   -- Lucia  → Pilates sala C sesion 6
-(6, 3, 14, '2026-04-30');   -- Alvaro → Fuerza  sala B sesion 14
+(4, 5, 12, '2026-04-28'),   -- Diego  → Fuerza   sala B sesion 12
+(5, 2,  6, '2026-04-29'),   -- Lucia  → Pilates  sala C sesion 6
+(6, 3, 14, '2026-04-29'),   -- Alvaro → Fuerza   sala B sesion 14
+(7, 6, 9,  '2026-04-25');   -- Maria  → Spinning sala D sesion 9
 
 -- 12. ASIGNACIÓN DE PLAZAS A RESERVAS
 INSERT INTO reserva_plaza (id_reserva, id_sesion, id_sala, id_plaza) VALUES
 (1, 10, 4, 1),
-(1, 10, 4, 2),
-
 (2,  5, 3, 1),
-
 (3,  1, 1, 1),
-(3,  1, 1, 2),
-(3,  1, 1, 3),
-
 (4, 12, 2, 1),
-
 (5,  6, 3, 2),
-(5,  6, 3, 3),
-
 (6, 14, 2, 2),
-(6, 14, 2, 3);
+(7,  9, 4, 2);
 
 -- 13. PEDIDOS DE PRODUCTOS
 INSERT INTO pedir_producto (id_usuario, id_producto, fecha, hora, cantidad, entregado) VALUES
@@ -180,17 +172,17 @@ INSERT INTO pedir_producto (id_usuario, id_producto, fecha, hora, cantidad, entr
 
 -- 14. VALORACIONES
 INSERT INTO valorar (nombre_clase, id_usuario, fecha, opinion, puntuacion) VALUES
-('Crossfit', 2, '2026-04-01', 'Clase intensa y muy bien dirigida.',             5),
-('Crossfit', 4, '2026-04-02', 'Buen ritmo, aunque exigente para principiantes.',4),
-('Yoga',     3, '2026-04-03', 'Muy relajante y con buenas correcciones.',       5),
-('Yoga',     2, '2026-04-04', 'Ambiente agradable y ejercicios bien explicados.',4),
-('Pilates',  2, '2026-04-05', 'Trabajo de core muy completo.',                  4),
-('Pilates',  5, '2026-04-06', 'Sesion ordenada y muy util para la postura.',    5),
-('Spinning', 2, '2026-04-07', 'Mucha energia y buena musica.',                  5),
-('Spinning', 3, '2026-04-08', 'Sesion intensa, sali reventado.',                4),
-('Zumba',    4, '2026-04-09', 'Divertida y dinamica.',                          5),
-('Fuerza',   5, '2026-04-10', 'Clase exigente y efectiva.',                     4),
-('Fuerza',   3, '2026-04-11', 'Buen trabajo de fuerza y resistencia.',          4);
+('Crossfit', 2, '2026-05-03', 'Clase intensa y muy bien dirigida.',             5),
+('Crossfit', 4, '2026-05-04', 'Buen ritmo, aunque exigente para principiantes.',4),
+('Yoga',     3, '2026-05-01', 'Muy relajante y con buenas correcciones.',       5),
+('Yoga',     2, '2026-05-02', 'Ambiente agradable y ejercicios bien explicados.',4),
+('Pilates',  2, '2026-05-03', 'Trabajo de core muy completo.',                  4),
+('Pilates',  5, '2026-05-04', 'Sesion ordenada y muy util para la postura.',    5),
+('Spinning', 2, '2026-05-01', 'Mucha energia y buena musica.',                  5),
+('Spinning', 3, '2026-05-02', 'Sesion intensa, sali reventado.',                4),
+('Zumba',    6, '2026-05-02', 'Divertida y dinamica.',                          5),
+('Fuerza',   5, '2026-05-02', 'Clase exigente y efectiva.',                     4),
+('Fuerza',   3, '2026-05-03', 'Buen trabajo de fuerza y resistencia.',          4);
 
 -- 15. AJUSTE DE SECUENCIAS IDENTITY
 SELECT setval(pg_get_serial_sequence('sala',     'id_sala'),
