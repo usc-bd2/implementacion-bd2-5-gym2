@@ -104,6 +104,12 @@ clave=clave
 
 4. Ejecutar la aplicación con `Run Project`.
 
+#### Credenciales
+
+Para iniciar sesión puede utilizarse el siguiente usuario de prueba:
+> usuario: `maria@gymfit.es`  
+> contraseña: `1234`
+
 
 ## Autores:
 - Rañó Myro, Maria, maria.rano@rai.usc.es
