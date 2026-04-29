@@ -6,11 +6,11 @@ import Aplicacion.ValoracionResumen;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-public class VOpiniones extends javax.swing.JPanel {
+public class VOpinionesClase extends javax.swing.JPanel {
     
     private FachadaAplicacion fa;
 
-    public VOpiniones(FachadaAplicacion fa) {
+    public VOpinionesClase(FachadaAplicacion fa) {
         this.fa = fa;
         initComponents();
     }

@@ -144,7 +144,7 @@ public class VContenedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemValoracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemValoracionesActionPerformed
-        navegarA(new VOpiniones(fa), "Valoraciones");
+        navegarA(new VOpinionesClase(fa), "Valoraciones");
     }//GEN-LAST:event_menuItemValoracionesActionPerformed
 
     public void navegarA(JPanel panel, String titulo) {     // Navega a una nueva vista y guarda la actual en el historial.

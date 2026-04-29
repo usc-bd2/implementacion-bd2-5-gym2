@@ -224,10 +224,10 @@ public class DAOUsuario extends AbstractDAO {
 
         String consulta =
             """
-            SELECT id_usuario, nombre, ap1, ap2, email, contraseña, tipo_usuario, fecha_nacimiento
+            SELECT id_usuario, nombre, ap1, ap2, email, contrasena, tipo_usuario, fecha_nacimiento
             FROM Usuario
             WHERE email = ?
-            AND contraseña = ?
+            AND contrasena = ?
             """;
 
         try (PreparedStatement stm = conn.prepareStatement(consulta)) {
@@ -245,7 +245,7 @@ public class DAOUsuario extends AbstractDAO {
                 u.setAp1(rs.getString("ap1"));
                 u.setAp2(rs.getString("ap2"));
                 u.setEmail(rs.getString("email"));
-                u.setContrasena(rs.getString("contraseña"));
+                u.setContrasena(rs.getString("contrasena"));
                 u.setTipoUsuario(rs.getString("tipo_usuario"));
 
                 Date fechaSql = rs.getDate("fecha_nacimiento");

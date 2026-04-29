@@ -16,6 +16,7 @@ public class VProductos extends javax.swing.JPanel {
     public VProductos(FachadaAplicacion fa) {
         this.fa = fa;
         initComponents();
+        cargarProductos();
     }        
     
     private void cargarProductos() {
