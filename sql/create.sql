@@ -148,7 +148,9 @@ CREATE TABLE reserva_plaza (
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
   CONSTRAINT uq_plaza_por_sesion
-    UNIQUE (id_sesion, id_sala, id_plaza)
+    UNIQUE (id_sesion, id_sala, id_plaza),
+  CONSTRAINT uq_reserva_una_plaza
+    UNIQUE (id_reserva)
 );
 
 -- 12. Equipo
@@ -282,52 +284,5 @@ CREATE INDEX idx_valorar_clase
 
 CREATE INDEX idx_valorar_usuario_clase 
   ON valorar (id_usuario, nombre_clase);
-
--- ============================================================
--- TRIGGERS DE INTEGRIDAD
--- ============================================================
-
--- Restricción: validar que la plaza reservada corresponde a la sesión y sala de la reserva
-CREATE OR REPLACE FUNCTION fn_validar_reserva_plaza()
-RETURNS TRIGGER AS $$
-DECLARE
-  sesion_reserva INTEGER;
-  sala_sesion    INTEGER;
-BEGIN
-  SELECT r.id_sesion
-  INTO sesion_reserva
-  FROM reserva r
-  WHERE r.id_reserva = NEW.id_reserva;
-
-  IF sesion_reserva IS NULL THEN
-    RAISE EXCEPTION 'La reserva % no existe.', NEW.id_reserva;
-  END IF;
-
-  IF sesion_reserva <> NEW.id_sesion THEN
-    RAISE EXCEPTION 'La plaza reservada no corresponde a la sesión de la reserva.';
-  END IF;
-
-  SELECT s.id_sala
-  INTO sala_sesion
-  FROM sesion s
-  WHERE s.id_sesion = NEW.id_sesion;
-
-  IF sala_sesion IS NULL THEN
-    RAISE EXCEPTION 'La sesión % no existe.', NEW.id_sesion;
-  END IF;
-
-  IF sala_sesion <> NEW.id_sala THEN
-    RAISE EXCEPTION 'La plaza seleccionada no pertenece a la sala de la sesión.';
-  END IF;
-
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER trg_validar_reserva_plaza
-BEFORE INSERT OR UPDATE
-ON reserva_plaza
-FOR EACH ROW
-EXECUTE FUNCTION fn_validar_reserva_plaza();
 
 COMMIT;

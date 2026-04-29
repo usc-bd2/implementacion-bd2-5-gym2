@@ -20,13 +20,12 @@ public class DAOClase extends AbstractDAO {
 
         StringBuilder consulta = new StringBuilder(
         """
-            SELECT c.nombre,
-                c.duracion,
-                c.clasificacion,
-                COALESCE(ROUND(AVG(v.puntuacion), 2), 0) AS puntuacion_media
-            FROM clase c
-            LEFT JOIN valorar v
-                ON v.nombre_clase = c.nombre
+            SELECT
+                nombre,
+                duracion,
+                clasificacion,
+                puntuacion_media
+            FROM v_clase_resumen
             WHERE 1 = 1
         """);
 
@@ -49,8 +48,7 @@ public class DAOClase extends AbstractDAO {
 
         consulta.append(
         """
-            GROUP BY c.nombre, c.duracion, c.clasificacion
-            ORDER BY c.nombre
+            ORDER BY nombre
         """);
 
         try (PreparedStatement stm = conn.prepareStatement(consulta.toString())) {

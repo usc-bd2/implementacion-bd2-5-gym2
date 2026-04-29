@@ -21,70 +21,46 @@ public class DAOSesiones extends AbstractDAO {
         StringBuilder consulta = new StringBuilder(
         """
             SELECT
-                s.id_sesion,
-                s.id_sala,
-                sa.nombre AS nombre_sala,
-                s.nombre_clase,
-                s.fecha_sesion,
-                s.hora_inicio,
-                COUNT(DISTINCT p.id_plaza) AS plazas_totales,
-                COUNT(DISTINCT rp.id_plaza) AS plazas_ocupadas,
-                COUNT(DISTINCT p.id_plaza) - COUNT(DISTINCT rp.id_plaza) AS plazas_disponibles,
-                COALESCE(
-                    ROUND(
-                        (COUNT(DISTINCT rp.id_plaza)::numeric * 100)
-                        / NULLIF(COUNT(DISTINCT p.id_plaza), 0),
-                        2
-                    ),
-                    0.00
-                ) AS porcentaje_ocupacion
-            FROM sesion s
-            JOIN sala sa
-                ON s.id_sala = sa.id_sala
-            LEFT JOIN plaza p
-                ON p.id_sala = s.id_sala
-            LEFT JOIN reserva_plaza rp
-                ON rp.id_sesion = s.id_sesion
-                AND rp.id_sala = p.id_sala
-                AND rp.id_plaza = p.id_plaza
-            LEFT JOIN reserva r
-                ON r.id_reserva = rp.id_reserva
-                AND r.id_sesion = s.id_sesion
+                id_sesion,
+                id_sala,
+                nombre_sala,
+                nombre_clase,
+                duracion,
+                fecha_sesion,
+                hora_inicio,
+                plazas_totales,
+                plazas_ocupadas,
+                plazas_disponibles,
+                porcentaje_ocupacion
+            FROM v_sesion_disponibilidad
             WHERE 1 = 1
         """);
 
         List<Object> parametros = new ArrayList<>();
 
         if (nombreClase != null && !nombreClase.isBlank()) {
-            consulta.append(" AND s.nombre_clase ILIKE ? ");
+            consulta.append(" AND nombre_clase ILIKE ? ");
             parametros.add("%" + nombreClase.trim() + "%");
         }
 
         if (fechaSesion != null) {
-            consulta.append(" AND s.fecha_sesion = ? ");
+            consulta.append(" AND fecha_sesion = ? ");
             parametros.add(Date.valueOf(fechaSesion));
         }
 
         if (nombreSala != null && !nombreSala.isBlank()) {
-            consulta.append(" AND sa.nombre = ? ");
+            consulta.append(" AND nombre_sala = ? ");
             parametros.add(nombreSala.trim());
         }
 
         if (horaInicio != null) {
-            consulta.append(" AND s.hora_inicio = ? ");
+            consulta.append(" AND hora_inicio = ? ");
             parametros.add(Time.valueOf(horaInicio));
         }
 
         consulta.append(
         """
-            GROUP BY
-                s.id_sesion,
-                s.id_sala,
-                sa.nombre,
-                s.nombre_clase,
-                s.fecha_sesion,
-                s.hora_inicio
-            ORDER BY s.fecha_sesion, s.hora_inicio, s.nombre_clase
+            ORDER BY fecha_sesion, hora_inicio, nombre_clase
         """);
 
         try (PreparedStatement stm = conn.prepareStatement(consulta.toString())) {
