@@ -51,7 +51,7 @@ public class VListaClases extends javax.swing.JPanel {
 
         cbFiltroClasificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Funcional", "Suelo", "Mente-Cuerpo", "Cardio", "Baile", "Musculacion" }));
 
-        lblDuracion.setText("Duración:");
+        lblDuracion.setText("Duración (min):");
 
         lblClasificacion.setText("Clasificación:");
 
@@ -103,8 +103,8 @@ public class VListaClases extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollTablaClases)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblClasificacion)
                             .addComponent(lblDuracion))
