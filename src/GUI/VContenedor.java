@@ -164,10 +164,6 @@ public class VContenedor extends javax.swing.JFrame {
         navegarA(new VListaClases(fa), "Catálogo de Clases");
     }
 
-    private void menuItemSesionesActionPerformed(java.awt.event.ActionEvent evt) {
-        navegarA(new VPrincipal(fa), "Sesiones");
-    }
-
     private void menuItemProductosActionPerformed(java.awt.event.ActionEvent evt) {
         navegarA(new VProductos(fa), "Productos");
     }

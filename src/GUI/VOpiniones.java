@@ -146,8 +146,8 @@ public class VOpiniones extends javax.swing.JPanel {
 
             Integer puntuacion = Integer.valueOf((String) cbPuntuacion.getSelectedItem());
 
-            valoracion.modificarOpinion(opinion);
-            valoracion.modificarPuntuacion(puntuacion);
+            valoracion.setOpinion(opinion);
+            valoracion.setPuntuacion(puntuacion);
 
             Integer success = fa.modificarValoracion(valoracion);
 
@@ -192,9 +192,9 @@ public class VOpiniones extends javax.swing.JPanel {
             return;
         }
 
-        taxEditarOpinion.setText(valoracion.consultarOpinion());
+        taxEditarOpinion.setText(valoracion.getOpinion());
 
-        Integer puntuacion = valoracion.consultarPuntuacion();
+        Integer puntuacion = valoracion.getPuntuacion();
         if (puntuacion != null) {
             cbPuntuacion.setSelectedItem(String.valueOf(puntuacion));
         }
@@ -231,7 +231,7 @@ public class VOpiniones extends javax.swing.JPanel {
                 return;
             }
 
-            Integer filasEliminadas = fa.eliminarValoracion(valoracion.consultarIdValoracion());
+            Integer filasEliminadas = fa.eliminarValoracion(valoracion.getIdValoracion());
 
             if (filasEliminadas == null || filasEliminadas <= 0) {
                 fa.muestraExcepcion("No se pudo eliminar la valoración seleccionada.");

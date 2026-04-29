@@ -133,7 +133,7 @@ public class FachadaAplicacion {
     }
 
     public Integer modificarValoracion(Valoracion valoracion) {
-        valoracion.modificarIdUsuario(getIdUsuarioAutenticado());
+        valoracion.setIdUsuario(getIdUsuarioAutenticado());
         return gestValoracion.modificarValoracion(valoracion);
     }
 

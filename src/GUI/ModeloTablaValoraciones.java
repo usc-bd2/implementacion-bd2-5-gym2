@@ -64,13 +64,13 @@ public class ModeloTablaValoraciones extends AbstractTableModel {
 
         switch (columna) {
             case 0:
-                return v.consultarNombreClase();
+                return v.getNombreClase();
             case 1:
-                return v.consultarFecha();
+                return v.getFecha();
             case 2:
-                return v.consultarPuntuacion();
+                return v.getPuntuacion();
             case 3:
-                return v.consultarOpinion();
+                return v.getOpinion();
             default:
                 return null;
         }

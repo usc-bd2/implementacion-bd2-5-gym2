@@ -107,10 +107,10 @@ public class VInsertarValoracion extends javax.swing.JPanel {
             Integer puntuacion = Integer.valueOf((String) cbPuntuacion.getSelectedItem());
 
             Valoracion valoracion = new Valoracion();
-            valoracion.modificarNombreClase(nombreClase);
-            valoracion.modificarIdUsuario(fa.getIdUsuarioAutenticado());
-            valoracion.modificarOpinion(opinion);
-            valoracion.modificarPuntuacion(puntuacion);
+            valoracion.setNombreClase(nombreClase);
+            valoracion.setIdUsuario(fa.getIdUsuarioAutenticado());
+            valoracion.setOpinion(opinion);
+            valoracion.setPuntuacion(puntuacion);
 
             Integer success = fa.registrarValoracion(valoracion);
 
