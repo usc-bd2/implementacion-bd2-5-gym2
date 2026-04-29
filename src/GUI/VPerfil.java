@@ -196,23 +196,24 @@ public class VPerfil extends javax.swing.JPanel {
                 return;
             }
 
-            u.setIdUsuario(Integer.parseInt(txtIdUsuario.getText().trim()));
-            u.setNombre(txtNombre.getText().trim());
-            u.setAp1(txtAp1.getText().trim());
-            u.setAp2(txtAp2.getText().trim());
-            u.setEmail(txtEmail.getText().trim());
-            u.setContrasena(txtContrasena.getText().trim());
-            u.setTipoUsuario(cmbTipoUsuario.getSelectedItem().toString());
-            u.setFechaNacimiento(LocalDate.parse(txtFechaNacimiento.getText().trim()));
+            txtNombre.setText(u.getNombre());
+            txtAp1.setText(u.getAp1());
+            txtAp2.setText(u.getAp2());
+            txtEmail.setText(u.getEmail());
+            txtContrasena.setText("");
+            cmbTipoUsuario.setSelectedItem(u.getTipoUsuario());
 
             if (u.getFechaNacimiento() != null) {
                 txtFechaNacimiento.setText(u.getFechaNacimiento().toString());
+            } else {
+                txtFechaNacimiento.setText("");
             }
+            
         } catch (NumberFormatException e) {
             fa.muestraExcepcion("El ID de usuario debe ser un número.");
         } catch (Exception e) {
             fa.muestraExcepcion("Error al buscar usuario: " + e.getMessage());
-        }
+        }                                             
     }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
 
     private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed

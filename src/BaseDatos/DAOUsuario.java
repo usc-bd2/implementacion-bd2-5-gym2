@@ -33,7 +33,7 @@ public class DAOUsuario extends AbstractDAO {
 
         String consulta =
             """
-            SELECT id_usuario, nombre, ap1, ap2, email, contraseña, tipo_usuario, fecha_nacimiento
+            SELECT id_usuario, nombre, ap1, ap2, email, contrasena, tipo_usuario, fecha_nacimiento
             FROM Usuario
             WHERE id_usuario = ?
             """;
@@ -52,7 +52,7 @@ public class DAOUsuario extends AbstractDAO {
                 usuario.setAp1(rs.getString("ap1"));
                 usuario.setAp2(rs.getString("ap2"));
                 usuario.setEmail(rs.getString("email"));
-                usuario.setContrasena(rs.getString("contraseña"));
+                usuario.setContrasena(rs.getString("contrasena"));
                 usuario.setTipoUsuario(rs.getString("tipo_usuario"));
 
                 Date fechaSql = rs.getDate("fecha_nacimiento");
@@ -99,7 +99,7 @@ public class DAOUsuario extends AbstractDAO {
 
         String consulta =
             """
-            INSERT INTO usuario(nombre, ap1, ap2, email, contraseña, tipo_usuario, fecha_nacimiento)
+            INSERT INTO usuario(nombre, ap1, ap2, email, contrasena, tipo_usuario, fecha_nacimiento)
             VALUES (?, ?, ?, ?, ?, ?, ?)
             """;
 
@@ -130,7 +130,7 @@ public class DAOUsuario extends AbstractDAO {
         String consulta =
             """
             UPDATE Usuario
-            SET nombre = ?, ap1 = ?, ap2 = ?, email = ?, contraseña = ?, fecha_nacimiento = ?
+            SET nombre = ?, ap1 = ?, ap2 = ?, email = ?, contrasena = ?, fecha_nacimiento = ?
             WHERE id_usuario = ?
             """;
 
