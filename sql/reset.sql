@@ -17,6 +17,7 @@ DROP TABLE IF EXISTS limpieza        CASCADE;
 DROP TABLE IF EXISTS monitor         CASCADE;
 DROP TABLE IF EXISTS trabajador      CASCADE;
 DROP TABLE IF EXISTS usuario         CASCADE;
+DROP TABLE IF EXISTS auditoria_valoracion CASCADE;
 
 DROP FUNCTION IF EXISTS fn_validar_reserva_plaza() CASCADE;
 

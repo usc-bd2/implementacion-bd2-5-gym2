@@ -99,4 +99,86 @@ ON valorar
 FOR EACH ROW
 EXECUTE FUNCTION fn_validar_valoracion_clase_reservada_finalizada();
 
+-- Auditoría: registrar cambios sobre valoraciones
+CREATE OR REPLACE FUNCTION fn_auditar_valoracion()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+
+        INSERT INTO auditoria_valoracion (
+            operacion,
+            id_valoracion,
+            id_usuario,
+            nombre_clase,
+            opinion_nueva,
+            puntuacion_nueva
+        )
+        VALUES (
+            'INSERT',
+            NEW.id_valoracion,
+            NEW.id_usuario,
+            NEW.nombre_clase,
+            NEW.opinion,
+            NEW.puntuacion
+        );
+
+        RETURN NEW;
+
+    ELSIF TG_OP = 'UPDATE' THEN
+
+        INSERT INTO auditoria_valoracion (
+            operacion,
+            id_valoracion,
+            id_usuario,
+            nombre_clase,
+            opinion_anterior,
+            opinion_nueva,
+            puntuacion_anterior,
+            puntuacion_nueva
+        )
+        VALUES (
+            'UPDATE',
+            NEW.id_valoracion,
+            NEW.id_usuario,
+            NEW.nombre_clase,
+            OLD.opinion,
+            NEW.opinion,
+            OLD.puntuacion,
+            NEW.puntuacion
+        );
+
+        RETURN NEW;
+
+    ELSIF TG_OP = 'DELETE' THEN
+
+        INSERT INTO auditoria_valoracion (
+            operacion,
+            id_valoracion,
+            id_usuario,
+            nombre_clase,
+            opinion_anterior,
+            puntuacion_anterior
+        )
+        VALUES (
+            'DELETE',
+            OLD.id_valoracion,
+            OLD.id_usuario,
+            OLD.nombre_clase,
+            OLD.opinion,
+            OLD.puntuacion
+        );
+
+        RETURN OLD;
+    END IF;
+
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_auditar_valoracion
+AFTER INSERT OR UPDATE OR DELETE
+ON valorar
+FOR EACH ROW
+EXECUTE FUNCTION fn_auditar_valoracion();
+
 COMMIT;
