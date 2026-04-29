@@ -20,8 +20,13 @@ public class DAOClase extends AbstractDAO {
 
         StringBuilder consulta = new StringBuilder(
         """
-            SELECT nombre, duracion, clasificacion, 0.0 AS puntuacionMedia -- TODO: calcular la puntuación media real
-            FROM clase
+            SELECT c.nombre,
+                c.duracion,
+                c.clasificacion,
+                COALESCE(ROUND(AVG(v.puntuacion), 2), 0) AS puntuacion_media
+            FROM clase c
+            LEFT JOIN valorar v
+                ON v.nombre_clase = c.nombre
             WHERE 1 = 1
         """);
 
@@ -42,7 +47,11 @@ public class DAOClase extends AbstractDAO {
             parametros.add(clasificacion.trim());
         }
 
-        consulta.append(" ORDER BY nombre ");
+        consulta.append(
+        """
+            GROUP BY c.nombre, c.duracion, c.clasificacion
+            ORDER BY c.nombre
+        """);
 
         try (PreparedStatement stm = conn.prepareStatement(consulta.toString())) {
 
@@ -56,7 +65,7 @@ public class DAOClase extends AbstractDAO {
                     clase.setNombre(rs.getString("nombre"));
                     clase.setDuracion(rs.getInt("duracion"));
                     clase.setClasificacion(rs.getString("clasificacion"));
-                    clase.setPuntuacionMedia(rs.getDouble("puntuacionMedia"));
+                    clase.setPuntuacionMedia(rs.getDouble("puntuacion_media"));
 
                     resultado.add(clase);
                 }

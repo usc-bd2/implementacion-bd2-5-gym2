@@ -21,8 +21,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="scrollTablaClases" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="txtBuscar" pref="173" max="32767" attributes="0"/>
-                      <EmptySpace pref="165" max="32767" attributes="0"/>
+                      <Component id="txtBuscar" pref="169" max="32767" attributes="0"/>
+                      <EmptySpace pref="161" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="lblClasificacion" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="lblDuracion" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -113,7 +113,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblDuracion">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Duraci&#xf3;n:"/>
+        <Property name="text" type="java.lang.String" value="Duraci&#xf3;n (min):"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblClasificacion">

@@ -6,7 +6,6 @@ import Aplicacion.Pedido;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class VProductos extends javax.swing.JPanel {
@@ -16,6 +15,7 @@ public class VProductos extends javax.swing.JPanel {
     public VProductos(FachadaAplicacion fa) {
         this.fa = fa;
         initComponents();
+        cargarProductos();
     }        
     
     private void cargarProductos() {

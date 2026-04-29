@@ -1,11 +1,9 @@
 package BaseDatos;
 
 import Aplicacion.Usuario;
-
+import java.sql.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.*;
-
 
 public class DAOUsuario extends AbstractDAO {
 
@@ -36,8 +34,8 @@ public class DAOUsuario extends AbstractDAO {
         String consulta = 
             """
             SELECT id_usuario, nombre, ap1, ap2, email, contrasena, tipo_usuario, fecha_nacimiento
-            FROM Usuario 
-            WHERE id_usuario = ?                    
+            FROM Usuario
+            WHERE id_usuario = ?                  
             """;
 
         try (PreparedStatement stm = conn.prepareStatement(consulta)) {
@@ -61,6 +59,7 @@ public class DAOUsuario extends AbstractDAO {
                 if (fechaSql != null) {
                     usuario.setFechaNacimiento(fechaSql.toLocalDate());
                 }
+                
                 return usuario;
             }
         } catch (SQLException e) {
